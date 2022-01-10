@@ -1,21 +1,33 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'bobbycookbook',
+    title: "Bobby's Cookbook",
     htmlAttrs: {
       lang: 'en',
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'Simple recipes for those who loves to cook :D',
+      },
       { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
-        rel: 'stylesheet',
+        rel: 'stylesheet', // material icons CDN
         href: 'https://fonts.googleapis.com/icon?family=Material+Icons',
+      },
+      {
+        rel: 'stylesheet', // FontAwesome CDN
+        href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css',
+        integrity:
+          'sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==',
+        crossorigin: 'anonymous',
+        referrerpolicy: 'no-referrer',
       },
     ],
   },

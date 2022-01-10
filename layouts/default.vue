@@ -1,0 +1,26 @@
+<template>
+  <div class="relative font-inter">
+    <div
+      class="bg-image absolute inset-0 z-[-1] h-full bg-repeat opacity-5"
+    ></div>
+    <div class="relative min-h-[85vh]">
+      <Nuxt />
+    </div>
+    <Footer />
+  </div>
+</template>
+
+<script>
+import Footer from '@/components/layout-parts/Footer.vue'
+export default {
+  components: {
+    Footer,
+  },
+}
+</script>
+
+<style>
+.bg-image {
+  background-image: url('~assets/images/pattern.svg');
+}
+</style>
