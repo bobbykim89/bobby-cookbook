@@ -28,12 +28,12 @@ autoprefixer\
 moment\
 postcss-cli\
 tailwindcss\
-headlessui\
 Firebase
 
 ## Changes
 
-1. Initialize the project using Nuxt.js for frontend and Firebase on the backend
+1. Initialize the project using Nuxt.js for frontend and Firebase on the backend.
+2. Headless UI doesn't support Nuxt running on Vue 2, so I need to work the UI manually.
 
 ## Known Issues
 
