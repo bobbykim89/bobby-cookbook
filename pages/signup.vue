@@ -116,13 +116,15 @@ export default {
       } else if (this.password !== this.password2) {
         console.log('Please check password again')
       } else {
-        const loginData = {
-          username: this.username,
-          email: this.email,
-          password: this.password,
-          password2: this.password2,
-        }
-        console.log(loginData)
+        this.$store
+          .dispatch('authStore/signUp', {
+            email: this.email,
+            password: this.password,
+            username: this.username,
+          })
+          .then(() => {
+            this.$router.push('/recipes')
+          })
       }
     },
   },

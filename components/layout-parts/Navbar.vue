@@ -46,10 +46,7 @@
           >
         </div>
         <div class="block flex flex-wrap pt-1 justify-center">
-          <NavAuthLinksVue
-            v-if="isAuthenticated === true"
-            @close="navbarOpen = false"
-          />
+          <NavAuthLinksVue v-if="authCheck" @close="navbarOpen = false" />
           <NavGuestLinksVue v-else @close="navbarOpen = false" />
         </div>
       </div>
@@ -66,7 +63,7 @@
         >
       </div>
       <div class="hidden lg:block flex flex-wrap pb-0 pt-1 justify-center">
-        <NavAuthLinksVue v-if="isAuthenticated === true" />
+        <NavAuthLinksVue v-if="authCheck" />
         <NavGuestLinksVue v-else />
       </div>
     </div>
@@ -98,13 +95,13 @@ export default {
     handleHamburger() {
       this.navbarOpen = !this.navbarOpen
     },
-    checkAuth() {
-      if (this.$store.state.authStore.isAuthenticated === true) {
-        this.isAuthenticated = true
-      } else {
-        this.isAuthenticated = false
-      }
-    },
+    // checkAuth() {
+    //   if (this.$store.state.authStore.isAuthenticated === true) {
+    //     this.isAuthenticated = true
+    //   } else {
+    //     this.isAuthenticated = false
+    //   }
+    // },
     handleScroll() {
       if (window.scrollY >= 50) {
         this.navScroll = true
@@ -113,18 +110,22 @@ export default {
       }
     },
   },
-  computed: {},
-  watch: {
-    '$store.authStore': {
-      handler() {
-        this.checkAuth()
-      },
-      immediate: true,
+  computed: {
+    authCheck() {
+      return this.$store.state.authStore.isAuthenticated
     },
   },
-  mounted() {
-    this.checkAuth()
-  },
+  // watch: {
+  //   '$store.authStore': {
+  //     handler() {
+  //       this.checkAuth()
+  //     },
+  //     immediate: true,
+  //   },
+  // },
+  // mounted() {
+  //   this.checkAuth()
+  // },
   beforeMount() {
     window.addEventListener('scroll', this.handleScroll)
   },

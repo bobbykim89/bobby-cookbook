@@ -81,11 +81,18 @@ export default {
   },
   methods: {
     onSubmit() {
-      const loginData = {
-        email: this.email,
-        password: this.password,
+      if (this.email === '' || this.password === '') {
+        console.log('Please fill all fields')
+      } else {
+        this.$store
+          .dispatch('authStore/login', {
+            email: this.email,
+            password: this.password,
+          })
+          .then(() => {
+            this.$router.push('/recipes')
+          })
       }
-      console.log(loginData)
     },
   },
 }

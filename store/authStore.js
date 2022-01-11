@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  updateProfile,
 } from 'firebase/auth'
 
 export const state = () => ({
@@ -32,8 +33,8 @@ export const actions = {
       if (!res) {
         throw new Error('Could not complete the signup')
       }
-      await res.user.updateProfile({ username })
-      context.commit('setUser', res.user)
+      await updateProfile(res.user, { displayName: username })
+      await context.commit('setUser', res.user)
     } catch (err) {
       console.log(err.message)
       context.commit('setAuthError', err.message)
@@ -54,7 +55,7 @@ export const actions = {
     context.commit('setUser', null)
   },
   async loadUser(context) {
-    const unSub = onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, (user) => {
       if (user) {
         context.commit('setUser', user)
         context.commit('setAuthentication', true)
@@ -62,7 +63,6 @@ export const actions = {
         context.commit('setUser', null)
         context.commit('setAuthentication', false)
       }
-      unSub()
     })
   },
 }

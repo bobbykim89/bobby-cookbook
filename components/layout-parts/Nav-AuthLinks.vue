@@ -6,12 +6,13 @@
       class="inline-block text-[#d45464] align-middle mx-2 rounded-b-md lg:rounded-none"
     >
       <span>Welcome! </span>
-      {{ this.user.username }}
+      {{ getUserInfo.username }}
     </li>
     <li
+      @click="$emit('close')"
       class="inline-block text-[#d45464] align-middle mx-2 hover:text-black transition ease-in duration-150"
     >
-      <button @click="$emit('close')">
+      <button @click="handleLogout">
         <i class="fas fa-sign-out-alt" />
         <span class="hidden md:inline ml-1 text-lg">Logout</span>
       </button>
@@ -21,10 +22,21 @@
 
 <script>
 export default {
-  data() {
-    return {
-      user: { username: 'Manguito' },
-    }
+  computed: {
+    getUserInfo() {
+      const userInfo = this.$store.state.authStore.user
+
+      return {
+        email: userInfo.email,
+        username: userInfo.displayName,
+      }
+    },
+  },
+  methods: {
+    async handleLogout() {
+      await this.$store.dispatch('authStore/logout')
+      await this.$router.go()
+    },
   },
 }
 </script>
