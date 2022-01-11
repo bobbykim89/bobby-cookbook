@@ -2,7 +2,7 @@
   <nav
     v-bind:class="[
       navScroll ? 'lg:shadow-md bg-opacity-70' : 'bg-opacity-80',
-      ' bg-white absolute w-full top-0 md:sticky flex flex-wrap items-center z-50 transition ease-in duration-500 delay-150',
+      ' absolute bg-white w-full top-0 md:sticky flex flex-wrap items-center z-50 transition ease-in duration-500 delay-150',
     ]"
   >
     <div
@@ -101,10 +101,8 @@ export default {
     checkAuth() {
       if (this.$store.state.authStore.isAuthenticated === true) {
         this.isAuthenticated = true
-        console.log(this.isAuthenticated)
       } else {
         this.isAuthenticated = false
-        console.log(this.isAuthenticated)
       }
     },
     handleScroll() {

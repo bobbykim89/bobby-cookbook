@@ -10,7 +10,7 @@
     <section class="text-center my-16 text-gray-800">
       <h1 class="text-3xl lg:text-7xl items-center">
         <i class="fas fa-utensils inline-block text-2xl lg:text-6xl" />
-        <span class="font-bold">Thanks for coming!</span>
+        <span class="font-bold">Happy Cooking!</span>
         <i class="fas fa-smile-wink inline-block text-2xl lg:text-6xl" />
       </h1>
     </section>
