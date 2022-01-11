@@ -30,7 +30,7 @@
           />
         </div>
         <div class="flex flex-col inline-block px-2 mx-auto">
-          <h2 class="text-2xl md:text-3xl tracking-wider text-center">
+          <h2 class="text-3xl tracking-wider text-center mb-2">
             About Bobby's Cookbook
           </h2>
           <div class="mb-4">

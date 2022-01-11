@@ -19,6 +19,14 @@ export default {
     Navbar,
     Footer,
   },
+  mounted() {
+    this.onLoadUser()
+  },
+  methods: {
+    onLoadUser() {
+      this.$store.dispatch('authStore/loadUser')
+    },
+  },
 }
 </script>
 

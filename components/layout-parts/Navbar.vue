@@ -99,7 +99,7 @@ export default {
       this.navbarOpen = !this.navbarOpen
     },
     checkAuth() {
-      if (this.$store.state.AUTH.isAuthenticated === true) {
+      if (this.$store.state.authStore.isAuthenticated === true) {
         this.isAuthenticated = true
         console.log(this.isAuthenticated)
       } else {
@@ -117,7 +117,7 @@ export default {
   },
   computed: {},
   watch: {
-    '$store.AUTH': {
+    '$store.authStore': {
       handler() {
         this.checkAuth()
       },
