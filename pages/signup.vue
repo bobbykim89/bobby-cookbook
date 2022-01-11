@@ -4,9 +4,21 @@
       <div class="lg:col-span-2 self-center order-2 lg:order-1">
         <div class="container w-[90%] lg:w-[70%] 2xl:w-[60%] mx-auto">
           <h1 class="text-center text-4xl font-bold mb-4 tracking-wider">
-            Login
+            Sign up
           </h1>
           <form @submit.prevent="onSubmit" class="flex flex-col mb-4">
+            <div class="mb-4">
+              <label for="username" class="text-lg font-semibold"
+                >Username:</label
+              >
+              <input
+                type="text"
+                id="username"
+                v-model="username"
+                required
+                class="block w-full p-3 outline-none bg-gray-100 shadow-md"
+              />
+            </div>
             <div class="mb-4">
               <label for="email" class="text-lg font-semibold"
                 >Email Address:</label
@@ -27,6 +39,22 @@
                 type="password"
                 id="password"
                 v-model="password"
+                required
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                title="Password must contain at least one number, one uppercase and lowercase letter, and at least 8 or more characters"
+                minlength="8"
+                maxlength="116"
+                class="block w-full p-3 outline-none bg-gray-100 shadow-md"
+              />
+            </div>
+            <div class="mb-6">
+              <label for="password2" class="text-lg font-semibold"
+                >Confirm Password:
+              </label>
+              <input
+                type="password"
+                id="password2"
+                v-model="password2"
                 required
                 class="block w-full p-3 outline-none bg-gray-100 shadow-md"
               />
@@ -74,18 +102,28 @@ export default {
   data() {
     return {
       imgUrl:
-        'https://images.unsplash.com/photo-1565299715199-866c917206bb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=780&q=80',
+        'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=781&q=80',
+      username: '',
       email: '',
       password: '',
+      password2: '',
     }
   },
   methods: {
     onSubmit() {
-      const loginData = {
-        email: this.email,
-        password: this.password,
+      if (this.username === '' || this.email === '' || this.password === '') {
+        console.log('Please fill all fields')
+      } else if (this.password !== this.password2) {
+        console.log('Please check password again')
+      } else {
+        const loginData = {
+          username: this.username,
+          email: this.email,
+          password: this.password,
+          password2: this.password2,
+        }
+        console.log(loginData)
       }
-      console.log(loginData)
     },
   },
 }
