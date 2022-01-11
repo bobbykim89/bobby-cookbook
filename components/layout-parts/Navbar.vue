@@ -96,9 +96,6 @@ export default {
         console.log(this.isAuthenticated)
       }
     },
-    navbarClose() {
-      this.navbarOpen = false
-    },
   },
   computed: {},
   watch: {
