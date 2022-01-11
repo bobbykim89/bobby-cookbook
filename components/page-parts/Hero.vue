@@ -16,9 +16,9 @@
         <main
           class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28"
         >
-          <div class="sm:text-center lg:text-left">
+          <div class="text-center lg:text-left">
             <h1
-              class="text-4xl tracking-tight font-bold text-gray-900 sm:text-5xl md:text-5xl"
+              class="text-4xl tracking-tight font-bold text-gray-900 text-2xl md:text-5xl"
             >
               <p class="block mb-3">Do you like to cook for fun?</p>
               <p class="block text-[#flac18]">You came to right place!</p>

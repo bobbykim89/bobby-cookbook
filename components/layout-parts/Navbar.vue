@@ -1,9 +1,12 @@
 <template>
   <nav
-    class="absolute w-full top-0 md:sticky flex flex-wrap items-center z-50 transition ease-in duration-500 delay-150 bg-white bg-opacity-80 shadow-md"
+    v-bind:class="[
+      navScroll ? 'lg:shadow-md bg-opacity-70' : 'bg-opacity-80',
+      ' bg-white absolute w-full top-0 md:sticky flex flex-wrap items-center z-50 transition ease-in duration-500 delay-150',
+    ]"
   >
     <div
-      class="container flex flex-wrap items-center py-2 md:py-4 align-middle justify-between"
+      class="container flex flex-wrap items-center py-4 align-middle justify-between"
     >
       <div class="flex flex-shrink-0 mr-6 self-center">
         <nuxt-link to="/">
@@ -29,7 +32,7 @@
       </div>
       <div
         v-if="this.navbarOpen"
-        class="flex-grow w-full text-center space-y-1 pt-2 pb-3 lg:hidden"
+        class="flex-grow w-full text-center space-y-1 pt-2 lg:hidden bg-gray-100 bg-opacity-80 mx-2 mt-2 rounded-md shadow-md"
       >
         <div
           v-for="menu in navigation"
@@ -42,10 +45,17 @@
             >{{ menu.name }}</nuxt-link
           >
         </div>
+        <div class="block flex flex-wrap pt-1 justify-center">
+          <NavAuthLinksVue
+            v-if="isAuthenticated === true"
+            @close="navbarOpen = false"
+          />
+          <NavGuestLinksVue v-else @close="navbarOpen = false" />
+        </div>
       </div>
       <!-- Menu elements in larger screen -->
       <div
-        class="hidden lg:block flex flex-row flex-grow mx-auto justify-start"
+        class="hidden lg:block flex flex-row flex-grow mx-auto justify-start ml-8"
       >
         <nuxt-link
           v-for="menu in navigation"
@@ -81,6 +91,7 @@ export default {
         { name: 'About', to: '/about' },
         { name: 'Contact', to: '/contact' },
       ],
+      navScroll: false,
     }
   },
   methods: {
@@ -96,6 +107,13 @@ export default {
         console.log(this.isAuthenticated)
       }
     },
+    handleScroll() {
+      if (window.scrollY >= 50) {
+        this.navScroll = true
+      } else {
+        this.navScroll = false
+      }
+    },
   },
   computed: {},
   watch: {
@@ -108,6 +126,12 @@ export default {
   },
   mounted() {
     this.checkAuth()
+  },
+  beforeMount() {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll)
   },
 }
 </script>
