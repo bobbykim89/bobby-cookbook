@@ -1,5 +1,6 @@
 <template>
   <div class="relative font-inter">
+    <Navbar />
     <div
       class="bg-image absolute inset-0 z-[-1] h-full bg-repeat opacity-5"
     ></div>
@@ -11,9 +12,11 @@
 </template>
 
 <script>
+import Navbar from '@/components/layout-parts/Navbar.vue'
 import Footer from '@/components/layout-parts/Footer.vue'
 export default {
   components: {
+    Navbar,
     Footer,
   },
 }

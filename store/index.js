@@ -1,9 +1,11 @@
 import Vuex from 'vuex'
-import { posts } from '@/store/modules/posts'
+import { posts as POSTS } from '@/store/modules/posts'
+import { auth as AUTH } from '@/store/modules/auth'
 
 export default () =>
   new Vuex.Store({
     modules: {
-      posts,
+      POSTS,
+      AUTH,
     },
   })
