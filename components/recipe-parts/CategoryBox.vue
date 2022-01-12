@@ -20,9 +20,11 @@
         class="px-4 pt-4 pb-2 text-xl text-gray-600 font-semibold"
       >
         <nuxt-link
+          v-for="category in getCategoryList"
+          :key="category.id"
           :to="'/recipes/category/' + category.id"
           class="block mb-2 text-center hover:text-gray-900 transition ease-in duration-150"
-          >{{ category.name }}
+          >{{ category.name.charAt(0).toUpperCase() + category.name.slice(1) }}
         </nuxt-link>
         <button
           @click="$emit('toggle')"
@@ -40,16 +42,23 @@ export default {
   data() {
     return {
       categoryOpen: true,
-      category: {
-        name: 'Mexican',
-        id: '1',
-      },
     }
   },
   methods: {
     toggleCategoryBox() {
       this.categoryOpen = !this.categoryOpen
     },
+    onLoadCategoryList() {
+      this.$store.dispatch('categoryStore/loadCategories')
+    },
+  },
+  computed: {
+    getCategoryList() {
+      return this.$store.state.categoryStore.categories
+    },
+  },
+  mounted() {
+    this.onLoadCategoryList()
   },
 }
 </script>

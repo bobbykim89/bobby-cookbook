@@ -23,9 +23,6 @@ export const mutations = {
   setCategories(state, payload) {
     state.categories = payload
   },
-  addCategory(state, payload) {
-    state.categories.push(payload)
-  },
   setCategoryError(state, payload) {
     state.categoryError = payload
   },
@@ -38,7 +35,7 @@ export const actions = {
         name,
         createdAt: serverTimestamp(),
       })
-      await context.commit('addCategory', res)
+      // await context.commit('addCategory', res)
     } catch (err) {
       console.log(err.message)
       context.commit('setCategoryError', err.message)
@@ -46,14 +43,14 @@ export const actions = {
   },
   async loadCategories(context) {
     try {
-      const res = await onSnapshot(colQuery, (snapshot) => {
+      await onSnapshot(colQuery, (snap) => {
         let categories = []
-        snapshot.docs.forEach((doc) => {
+        snap.docs.forEach((doc) => {
           categories.push({ ...doc.data(), id: doc.id })
         })
-        return categories
+
+        context.commit('setCategories', categories)
       })
-      await context.commit('setCategories', res)
     } catch (err) {
       console.log(err.message)
       context.commit('setCategoryError', err.message)

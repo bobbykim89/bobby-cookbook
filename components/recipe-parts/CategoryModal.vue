@@ -70,7 +70,6 @@ export default {
           .dispatch('categoryStore/addCategory', { name: this.name })
           .then(() => {
             this.$emit('toggle')
-            this.name = ''
           })
       }
     },
