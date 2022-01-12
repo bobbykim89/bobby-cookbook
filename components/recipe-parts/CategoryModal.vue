@@ -63,9 +63,16 @@ export default {
       this.name = ''
     },
     handleSubmit() {
-      console.log(this.name)
-      this.$emit('toggle')
-      this.name = ''
+      if (this.name === '') {
+        console.log('Please write category name.')
+      } else {
+        this.$store
+          .dispatch('categoryStore/addCategory', { name: this.name })
+          .then(() => {
+            this.$emit('toggle')
+            this.name = ''
+          })
+      }
     },
   },
 }

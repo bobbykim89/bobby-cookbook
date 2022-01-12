@@ -5,7 +5,7 @@
     <div class="container mt-6 border-t-2 border-white md:w-2/3 items-center">
       <div class="text-center py-4">
         <p class="text-sm text-white align-middle font-bold mb-2">
-          &copy; Bobby's Cookbook 2021
+          &copy; Bobby's Cookbook 2022
         </p>
       </div>
     </div>
