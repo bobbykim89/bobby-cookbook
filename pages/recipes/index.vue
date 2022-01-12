@@ -25,17 +25,19 @@
         </div>
       </div>
     </div>
-    <!-- <AddCategory isOpen={isOpen} setIsOpen={setIsOpen} /> -->
+    <CategoryModal @toggle="toggleModal" v-if="showModal" />
   </section>
 </template>
 
 <script>
 import Card from '@/components/recipe-parts/Card.vue'
 import CategoryBox from '@/components/recipe-parts/CategoryBox.vue'
+import CategoryModal from '@/components/recipe-parts/CategoryModal.vue'
 export default {
   components: {
     Card,
     CategoryBox,
+    CategoryModal,
   },
   data() {
     return {
