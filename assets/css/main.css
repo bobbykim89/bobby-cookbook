@@ -775,6 +775,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-top: 1rem;
 }
 
+.mt-20 {
+  margin-top: 5rem;
+}
+
 .block {
   display: block;
 }
@@ -823,28 +827,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 1.25rem;
 }
 
-.h-\[50vh\] {
-  height: 50vh;
-}
-
 .h-\[30vh\] {
   height: 30vh;
 }
 
-.h-screen {
-  height: 100vh;
-}
-
 .h-40 {
   height: 10rem;
-}
-
-.max-h-\[40vh\] {
-  max-height: 40vh;
-}
-
-.max-h-\[50vh\] {
-  max-height: 50vh;
 }
 
 .min-h-\[85vh\] {
@@ -1137,6 +1125,18 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-bg-opacity: 0.8;
 }
 
+.bg-opacity-90 {
+  --tw-bg-opacity: 0.9;
+}
+
+.bg-opacity-50 {
+  --tw-bg-opacity: 0.5;
+}
+
+.bg-opacity-60 {
+  --tw-bg-opacity: 0.6;
+}
+
 .bg-gradient-to-br {
   background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
 }
@@ -1391,14 +1391,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.text-\[\#f1ac18\] {
-  --tw-text-opacity: 1;
-  color: rgb(241 172 24 / var(--tw-text-opacity));
-}
-
 .text-gray-800 {
   --tw-text-opacity: 1;
   color: rgb(31 41 55 / var(--tw-text-opacity));
+}
+
+.text-\[\#f1ac18\] {
+  --tw-text-opacity: 1;
+  color: rgb(241 172 24 / var(--tw-text-opacity));
 }
 
 .text-black {
@@ -1555,6 +1555,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 .hover\:underline:hover {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
+}
+
+.hover\:text-shadow-md:hover {
+  text-shadow: 0px 1px 2px rgb(30 29 39 / 19%), 1px 2px 4px rgb(54 64 147 / 18%);
+}
+
+.hover\:text-shadow-lg:hover {
+  text-shadow: 3px 3px 6px rgb(0 0 0 / 26%), 0 0 5px rgb(15 3 86 / 22%);
 }
 
 .focus\:outline-none:focus {

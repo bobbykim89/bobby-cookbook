@@ -4,7 +4,7 @@
     <section class="lg:w-[80%] mx-auto my-12">
       <h1 class="text-4xl font-bold mb-8 ml-3">Newest Recipes</h1>
       <div class="grid grid-flow-row lg:grid-cols-4 gap-4 mx-auto">
-        <Card />
+        <Card v-for="recipe in loadedPosts" :key="recipe.id" :post="recipe" />
       </div>
     </section>
     <Introduction />
@@ -28,6 +28,11 @@ export default {
     Hero,
     Introduction,
     Card,
+  },
+  computed: {
+    loadedPosts() {
+      return this.$store.state.postsStore.recipes.slice(0, 3)
+    },
   },
 }
 </script>

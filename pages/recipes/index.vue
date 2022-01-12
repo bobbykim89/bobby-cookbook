@@ -11,7 +11,7 @@
       <h1 class="text-4xl font-bold mb-8 ml-3">Recipes</h1>
       <div class="grid grid-flow-row lg:grid-cols-4 gap-8 mb-20">
         <div class="lg:col-span-3 grid lg:grid-cols-3 gap-4 order-2 lg:order-1">
-          <Card />
+          <Card v-for="recipe in loadedPosts" :key="recipe.id" :post="recipe" />
         </div>
         <div class="w-full order-1 lg:order-2">
           <nuxt-link
@@ -50,6 +50,11 @@ export default {
     toggleModal() {
       this.showModal = !this.showModal
       console.log(this.showModal)
+    },
+  },
+  computed: {
+    loadedPosts() {
+      return this.$store.state.postsStore.recipes
     },
   },
 }
