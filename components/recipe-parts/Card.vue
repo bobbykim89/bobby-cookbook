@@ -15,7 +15,7 @@
       </h1>
       <div class="text-right mb-4">
         <nuxt-link
-          :to="'/recipes/categories/' + post.category"
+          :to="'/recipes/category/' + post.category"
           class="inline-block px-6 py-2 rounded bg-[#d45464] hover:bg-[#cc080b] text-white capitalize transition ease-in duration-150"
         >
           {{

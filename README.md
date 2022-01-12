@@ -34,6 +34,7 @@ Firebase
 
 1. Initialize the project using Nuxt.js for frontend and Firebase on the backend.
 2. Headless UI doesn't support Nuxt running on Vue 2, so I need to work the UI manually.
+3. Authentication and some of functionalities of regarding posts are added. Some elements are now being dynamically displayed.
 
 ## Known Issues
 
