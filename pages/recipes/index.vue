@@ -4,7 +4,7 @@
       <img
         :src="this.imageUrl"
         alt="vegetables"
-        class="object-cover object-center w-full max-h-[40vh]"
+        class="object-cover object-center w-full h-[30vh] lg:h-full lg:max-h-[40vh]"
       />
     </div>
     <div class="lg:w-[90%] mx-auto">
@@ -21,7 +21,7 @@
             Add New Recipe
           </nuxt-link>
 
-          <!-- <CategoryBox categories={categories} setIsOpen={setIsOpen} /> -->
+          <CategoryBox @toggle="toggleModal" />
         </div>
       </div>
     </div>
@@ -31,15 +31,24 @@
 
 <script>
 import Card from '@/components/recipe-parts/Card.vue'
+import CategoryBox from '@/components/recipe-parts/CategoryBox.vue'
 export default {
   components: {
     Card,
+    CategoryBox,
   },
   data() {
     return {
       imageUrl:
         'https://images.unsplash.com/photo-1542223189-67a03fa0f0bd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1997&q=80',
+      showModal: false,
     }
+  },
+  methods: {
+    toggleModal() {
+      this.showModal = !this.showModal
+      console.log(this.showModal)
+    },
   },
 }
 </script>

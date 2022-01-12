@@ -66,11 +66,11 @@
             />
           </form>
           <p class="text-center mb-20">
-            Don't have an account?
+            Already got an account?
             <nuxt-link
-              to="/signup"
+              to="/login"
               class="font-semibold hover:text-gray-600 hover:underline"
-              >Sign Up</nuxt-link
+              >Login</nuxt-link
             >
           </p>
         </div>
