@@ -31,10 +31,11 @@ export const mutations = {
 export const actions = {
   async addCategory(context, { name }) {
     try {
-      const res = await addDoc(colRef, {
+      await addDoc(colRef, {
         name,
         createdAt: serverTimestamp(),
       })
+
       // await context.commit('addCategory', res)
     } catch (err) {
       console.log(err.message)

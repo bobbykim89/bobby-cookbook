@@ -29,11 +29,13 @@
           >
             <option class="p-3" value="">Select Category</option>
             <option
-              v-for="option in options"
-              :key="option.name"
-              v-bind:value="option.id"
+              v-for="category in getCategoryList"
+              :key="category.name"
+              v-bind:value="category.id"
             >
-              {{ option.name }}
+              {{
+                category.name.charAt(0).toUpperCase() + category.name.slice(1)
+              }}
             </option>
           </select>
         </div>
@@ -91,26 +93,37 @@ export default {
         ingredients: '',
         direction: '',
       },
-      options: [
-        { name: 'Mexican', id: '1' },
-        { name: 'Korean', id: '2' },
-        { name: 'Indian', id: '3' },
-      ],
     }
   },
   methods: {
     handleSubmit() {
       const { title, category, ingredients, direction } = this.inputData
-      console.log(
-        'title: ',
-        title,
-        'category: ',
-        category,
-        'ingredients: ',
-        ingredients,
-        'direction: ',
-        direction
-      )
+      if (!this.$store.state.authStore.isAuthenticated) {
+        console.log('Please Login to create new category!')
+        this.$router.push('/login')
+      } else if (this.name === '') {
+        console.log('Please write category name.')
+      } else {
+        this.$store
+          .dispatch('postsStore/addPost', {
+            title: title,
+            author: {
+              username: this.$store.state.authStore.user.displayName,
+              userId: this.$store.state.authStore.user.uid,
+            },
+            category: category,
+            ingredients: ingredients,
+            direction: direction,
+          })
+          .then(() => {
+            this.$router.push('/recipes')
+          })
+      }
+    },
+  },
+  computed: {
+    getCategoryList() {
+      return this.$store.state.categoryStore.categories
     },
   },
 }

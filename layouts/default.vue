@@ -21,11 +21,13 @@ export default {
     Footer,
   },
   mounted() {
-    this.onLoadUser()
+    this.onPageLoad()
   },
   methods: {
-    onLoadUser() {
+    onPageLoad() {
       this.$store.dispatch('authStore/loadUser')
+      this.$store.dispatch('categoryStore/loadCategories')
+      this.$store.dispatch('postsStore/loadPosts')
     },
   },
 }

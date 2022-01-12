@@ -63,7 +63,10 @@ export default {
       this.name = ''
     },
     handleSubmit() {
-      if (this.name === '') {
+      if (!this.$store.state.authStore.isAuthenticated) {
+        console.log('Please Login to create new category!')
+        this.$router.push('/login')
+      } else if (this.name === '') {
         console.log('Please write category name.')
       } else {
         this.$store
