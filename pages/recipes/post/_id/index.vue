@@ -65,7 +65,7 @@
         :direction="postData.direction"
       />
     </div>
-    <!-- <CommentSection comments={comments} /> -->
+    <CommentSection />
   </section>
 </template>
 
@@ -74,11 +74,13 @@ import { db } from '@/plugins/firebase'
 import { doc, getDoc } from 'firebase/firestore'
 import Loading from '@/components/widgets/Loading.vue'
 import RecipeTabs from '@/components/recipe-parts/RecipeTabs.vue'
+import CommentSection from '@/components/comment-parts/CommentSection.vue'
 
 export default {
   components: {
     Loading,
     RecipeTabs,
+    CommentSection,
   },
   data() {
     return {
