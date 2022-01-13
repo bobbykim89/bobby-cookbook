@@ -41,7 +41,7 @@
       </div>
       <div class="items-center w-full text-center">
         <nuxt-link
-          :to="'/recipes/posts/' + post.id"
+          :to="'/recipes/post/' + post.id"
           class="block py-2 rounded bg-[#f1ac18] text-white hover:bg-[#f25b0a] transition ease-in duration-150"
         >
           See Recipe

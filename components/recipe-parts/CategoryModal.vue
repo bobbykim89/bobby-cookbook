@@ -1,7 +1,7 @@
 <template>
   <section
     @click="closeModal"
-    class="backdrop fixed inset-0 z-10 overflow-y-auto bg-gray-800 bg-opacity-70"
+    class="fixed inset-0 z-10 overflow-y-auto bg-gray-800 bg-opacity-70"
   >
     <div class="min-h-screen px-4 text-center">
       <span

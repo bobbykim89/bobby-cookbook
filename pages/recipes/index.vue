@@ -53,7 +53,8 @@ export default {
   },
   computed: {
     loadedPosts() {
-      return this.$store.state.postsStore.recipes
+      const dataList = this.$store.state.postsStore.recipes
+      return dataList
     },
   },
 }
