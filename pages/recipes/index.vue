@@ -14,12 +14,16 @@
           <Card v-for="recipe in loadedPosts" :key="recipe.id" :post="recipe" />
         </div>
         <div class="w-full order-1 lg:order-2">
-          <nuxt-link
-            to="/recipes/new"
-            class="text-center text-2xl font-semibold block py-2 rounded-lg bg-[#d45464] text-white hover:bg-[#cc080b] transition ease-in duration-150 mb-4 mx-2"
+          <div
+            class="w-[95%] lg:w-full max-w-md p-2 mx-auto bg-white border border-gray-200 rounded-2xl shadow-lg mb-4"
           >
-            Add New Recipe
-          </nuxt-link>
+            <nuxt-link
+              to="/recipes/new"
+              class="text-center text-2xl font-semibold block py-2 rounded-lg bg-[#d45464] text-white hover:bg-[#cc080b] transition ease-in duration-150 w-full px-4 font-semibold items-center"
+            >
+              Add New Recipe
+            </nuxt-link>
+          </div>
 
           <CategoryBox @toggle="toggleModal" />
         </div>

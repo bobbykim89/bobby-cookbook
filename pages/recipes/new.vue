@@ -124,10 +124,8 @@ export default {
     handleSubmit() {
       const { title, category, ingredients, direction, cover } = this.inputData
       if (!this.$store.state.authStore.isAuthenticated) {
-        console.log('Please Login to create new category!')
+        console.log('Please Login to create new post!')
         this.$router.push('/login')
-      } else if (this.name === '') {
-        console.log('Please write category name.')
       } else {
         this.$store
           .dispatch('postsStore/addPost', {

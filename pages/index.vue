@@ -31,7 +31,7 @@ export default {
   },
   computed: {
     loadedPosts() {
-      return this.$store.state.postsStore.recipes.slice(0, 3)
+      return this.$store.state.postsStore.recipes.slice(0, 4)
     },
   },
 }

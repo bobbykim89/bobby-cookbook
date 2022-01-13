@@ -9,6 +9,7 @@ import {
   updateDoc,
   addDoc,
   arrayUnion,
+  arrayRemove,
 } from 'firebase/firestore'
 
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
@@ -56,6 +57,29 @@ export const actions = {
       })
 
       // Add post id to corresponding category
+      await updateDoc(doc(db, 'categories', category), {
+        recipes: arrayUnion(res.id),
+      })
+    } catch (err) {
+      console.log(err.message)
+      context.commit('setPostError', err.message)
+    }
+  },
+  async editPost(context, { id, title, category, ingredients, direction }) {
+    try {
+      // remove id from current category
+      await updateDoc(doc(db, 'categories', category), {
+        recipes: arrayRemove(id),
+      })
+      // update the post
+      const res = await updateDoc(doc(db, 'recipes', id), {
+        title: title,
+        category: category,
+        ingredients: ingredients,
+        direction: direction,
+        updatedAt: serverTimestamp(),
+      })
+      // add post id to updated corresponding category
       await updateDoc(doc(db, 'categories', category), {
         recipes: arrayUnion(res.id),
       })

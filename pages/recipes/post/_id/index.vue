@@ -1,6 +1,5 @@
 <template>
   <section class="lg:w-2/3 mx-auto py-20">
-    <Loading v-if="$fetchState.pending" />
     <div class="mb-8 shadow-xl">
       <img
         :src="
@@ -68,9 +67,18 @@
             {{ this.postData.author.username }}
           </h3>
         </div>
-        <p class="text-right mb-4">
+        <p v-if="!this.postData.updatedAt" class="text-right mb-4">
+          Posted on
           {{
             $moment(new Date(postData.createdAt.seconds * 1000)).format(
+              'MMMM Do YYYY'
+            )
+          }}
+        </p>
+        <p v-else class="text-right mb-4">
+          Edited on
+          {{
+            $moment(new Date(postData.updatedAt.seconds * 1000)).format(
               'MMMM Do YYYY'
             )
           }}
@@ -88,13 +96,11 @@
 <script>
 import { db } from '@/plugins/firebase'
 import { doc, getDoc } from 'firebase/firestore'
-import Loading from '@/components/widgets/Loading.vue'
 import RecipeTabs from '@/components/recipe-parts/RecipeTabs.vue'
 import CommentSection from '@/components/comment-parts/CommentSection.vue'
 
 export default {
   components: {
-    Loading,
     RecipeTabs,
     CommentSection,
   },
@@ -105,33 +111,18 @@ export default {
         authorProfile: '/images/defaultProfile.jpg',
       },
       postId: this.$route.params.id,
-      postData: {
-        title: '',
-        author: { username: '' },
-        ingredients: '',
-        direction: '',
-        category: '',
-        categoryName: '',
-        createdAt: '',
-      },
     }
   },
-  async fetch() {
-    await this.getSinglePost()
-  },
-  methods: {
-    async getSinglePost() {
-      const docRef = doc(db, 'recipes', this.postId)
-      const docSnap = await getDoc(docRef)
-      if (docSnap.exists) {
-        const result = await docSnap.data()
-        const getCategory = await getDoc(doc(db, 'categories', result.category))
+  async asyncData(context) {
+    const docRef = doc(db, 'recipes', context.params.id)
+    const docSnap = await getDoc(docRef)
 
-        this.postData = { ...result, categoryName: getCategory.data().name }
-      } else {
-        this.$router.push('/recipes')
-      }
-    },
+    const result = await docSnap.data()
+    const getCategory = await getDoc(doc(db, 'categories', result.category))
+
+    return {
+      postData: { ...result, categoryName: getCategory.data().name },
+    }
   },
 }
 </script>
