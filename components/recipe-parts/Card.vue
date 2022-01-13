@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-[95%] lg:w-full mx-auto overflow-hidden border-black border rounded shadow-xl font-inter mb-4 bg-white hover:scale-105 transition ease-in duration-300"
+    class="w-[95%] lg:w-full mx-auto overflow-hidden border-gray-300 border rounded shadow-xl font-inter mb-4 bg-white hover:scale-105 transition ease-in duration-300"
   >
     <div class="aspect-w-3 aspect-h-2">
       <img

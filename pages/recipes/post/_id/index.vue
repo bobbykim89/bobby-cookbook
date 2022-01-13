@@ -15,17 +15,31 @@
         {{ this.postData.title }}
       </h1>
       <div class="mb-8">
-        <div class="flex justify-start mb-6 items-center">
-          <nuxt-link
-            to="/recipes"
-            class="inline-block px-3 lg:px-4 py-2 rounded border border-[#f1ac18] hover:border-[#f25b0a] text-[#f1ac18] hover:text-[#f25b0a] capitalize ml-1 lg:ml-2 mr-2 lg:mr-3 font-semibold transition ease-in duration-150"
-          >
-            Go Back
+        <div
+          class="inline-block mb-6 items-center bg-white border border-gray-300 shadow-lg rounded-lg px-4 py-2"
+        >
+          <nuxt-link to="/recipes">
+            <i
+              class="material-icons text-4xl text-[#f1ac18] hover:text-[#f25b0a] text-shadow-lg transition ease-in duration-150 align-middle"
+              >arrow_back_ios</i
+            >
           </nuxt-link>
+          <div class="inline-block">
+            <nuxt-link :to="`/recipes/post/${postId}/edit`"
+              ><i
+                class="material-icons text-4xl text-[#d45464] hover:text-[#cc080b] text-shadow-lg transition ease-in duration-150 align-middle"
+                >edit</i
+              >
+            </nuxt-link>
+            <i
+              class="material-icons text-4xl text-[#f1ac18] hover:text-[#f25b0a] text-shadow-lg transition ease-in duration-150 align-middle"
+              >delete</i
+            >
+          </div>
           <!-- {isAuthenticated && editAndDelete} -->
           <button onClick="{copyLink}">
             <i
-              class="material-icons text-4xl text-[#d45464] hover:text-[#cc080b] text-shadow-xl transition ease-in duration-150"
+              class="material-icons text-4xl text-[#d45464] hover:text-[#cc080b] text-shadow-lg transition ease-in duration-150 align-middle"
               >share</i
             >
           </button>
