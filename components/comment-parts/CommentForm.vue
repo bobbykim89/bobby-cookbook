@@ -49,7 +49,7 @@ export default {
             postId: this.postId,
           })
           .then(() => {
-            this.message = ''
+            this.$router.go()
           })
       }
     },

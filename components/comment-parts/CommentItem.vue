@@ -48,6 +48,15 @@ export default {
   methods: {
     handleDelete() {
       console.log('Deleting this comment!')
+      console.log(this.comment.id, this.$route.params.id)
+      this.$store
+        .dispatch('commentStore/deleteComment', {
+          id: this.comment.id,
+          postId: this.$route.params.id,
+        })
+        .then(() => {
+          this.$router.go()
+        })
     },
   },
 }

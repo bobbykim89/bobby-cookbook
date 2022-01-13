@@ -10,8 +10,8 @@ import {
   addDoc,
   arrayUnion,
   arrayRemove,
+  deleteDoc,
 } from 'firebase/firestore'
-import { connectStorageEmulator } from 'firebase/storage'
 
 // Collection ref
 const colRef = collection(db, 'comments')
@@ -51,6 +51,17 @@ export const actions = {
       await updateDoc(doc(db, 'recipes', postId), {
         recipes: arrayUnion(res.id),
       })
+    } catch (err) {
+      console.log(err.message)
+      context.commit('setCommentError', err.message)
+    }
+  },
+  async deleteComment(context, { id, postId }) {
+    try {
+      await updateDoc(doc(db, 'recipes', postId), {
+        recipes: arrayRemove(id),
+      })
+      await deleteDoc(doc(db, 'comments', id))
     } catch (err) {
       console.log(err.message)
       context.commit('setCommentError', err.message)
