@@ -1,6 +1,6 @@
 <template>
   <div class="w-[90%] lg:w-full mx-auto">
-    <CommentForm />
+    <CommentForm :postId="postId" />
     <p class="ml-2 mb-4 font-semibold">Comments:</p>
     <div v-if="comments.length !== 0">
       <CommentItem
@@ -21,13 +21,14 @@ export default {
     CommentForm,
     CommentItem,
   },
-  data() {
-    return {
-      comments: [
-        { author: 'Manguito Lovebird', message: 'Pio pio', createdAt: '111' },
-        { author: "Kartik's Cat", message: 'Miau miau', createdAt: '222' },
-      ],
-    }
+  props: {
+    comments: {
+      type: Array,
+      default: [],
+    },
+    postId: {
+      required: true,
+    },
   },
 }
 </script>

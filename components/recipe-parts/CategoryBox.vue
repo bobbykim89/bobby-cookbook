@@ -53,18 +53,12 @@ export default {
     toggleCategoryBox() {
       this.categoryOpen = !this.categoryOpen
     },
-    // onLoadCategoryList() {
-
-    // },
   },
   computed: {
     getCategoryList() {
-      return this.$store.state.categoryStore.categories
+      return this.$store.getters['categoryStore/getCategories']
     },
   },
-  // mounted() {
-  //   this.onLoadCategoryList()
-  // },
 }
 </script>
 

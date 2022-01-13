@@ -20,11 +20,13 @@ const colRef = collection(db, 'recipes')
 // Queries
 const colQuery = query(colRef, orderBy('createdAt', 'desc'))
 
+// State
 export const state = () => ({
   recipes: [],
   postError: null,
 })
 
+// Mutations
 export const mutations = {
   setPosts(state, payload) {
     state.recipes = payload
@@ -34,6 +36,7 @@ export const mutations = {
   },
 }
 
+// Actions
 export const actions = {
   async addPost(
     context,
@@ -113,4 +116,12 @@ export const actions = {
   },
 }
 
-export const getters = {}
+// Getters
+export const getters = {
+  getPosts() {
+    return state.recipes
+  },
+  getPostError() {
+    return state.postError
+  },
+}

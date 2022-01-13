@@ -89,7 +89,7 @@
         :direction="postData.direction"
       />
     </div>
-    <CommentSection />
+    <CommentSection :comments="loadComments" :postId="postId" />
   </section>
 </template>
 
@@ -104,6 +104,7 @@ export default {
     RecipeTabs,
     CommentSection,
   },
+  middleware: 'loadComments',
   data() {
     return {
       placeholderImages: {
@@ -123,6 +124,11 @@ export default {
     return {
       postData: { ...result, categoryName: getCategory.data().name },
     }
+  },
+  computed: {
+    loadComments() {
+      return this.$store.getters['commentStore/getComments']
+    },
   },
 }
 </script>

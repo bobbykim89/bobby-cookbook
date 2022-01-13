@@ -23,6 +23,11 @@
 
 <script>
 export default {
+  props: {
+    postId: {
+      required: true,
+    },
+  },
   data() {
     return {
       message: '',
@@ -30,11 +35,24 @@ export default {
   },
   methods: {
     handleSubmit() {
-      console.log(this.message)
-      this.message = ''
+      if (!this.$store.state.authStore.isAuthenticated) {
+        console.log('Please Login to create new post!')
+        this.$router.push('/login')
+      } else {
+        this.$store
+          .dispatch('commentStore/addComment', {
+            message: this.message,
+            author: {
+              username: this.$store.state.authStore.user.displayName,
+              userId: this.$store.state.authStore.user.uid,
+            },
+            postId: this.postId,
+          })
+          .then(() => {
+            this.message = ''
+          })
+      }
     },
   },
 }
 </script>
-
-<style></style>
