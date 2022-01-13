@@ -127,7 +127,13 @@ export default {
   },
   computed: {
     loadComments() {
-      return this.$store.getters['commentStore/getComments']
+      // return this.$store.getters['commentStore/getComments']
+      const currentComments = this.$store.state.commentStore.comments.filter(
+        (comment) => {
+          return comment.postId === this.postId
+        }
+      )
+      return currentComments
     },
   },
 }

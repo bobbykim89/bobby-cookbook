@@ -11,6 +11,7 @@ import {
   arrayUnion,
   arrayRemove,
 } from 'firebase/firestore'
+import { connectStorageEmulator } from 'firebase/storage'
 
 // Collection ref
 const colRef = collection(db, 'comments')
@@ -28,9 +29,6 @@ export const state = () => ({
 export const mutations = {
   setComments(state, payload) {
     state.comments = payload
-  },
-  addComment(state, payload) {
-    state.comments.push(payload)
   },
   setCommentError(state, payload) {
     state.postError = payload
@@ -53,24 +51,21 @@ export const actions = {
       await updateDoc(doc(db, 'recipes', postId), {
         recipes: arrayUnion(res.id),
       })
-      await context.commit('addComment', { ...res.data(), id: res.id })
     } catch (err) {
       console.log(err.message)
       context.commit('setCommentError', err.message)
     }
   },
-  async loadComments(context, { postId }) {
+  async loadComments(context) {
     try {
       await onSnapshot(colQuery, (snap) => {
-        let comments = []
-        const filteredComments = snap.docs.filter((doc) => {
-          return doc.data().postId === postId
-        })
-        filteredComments.forEach((doc) => {
-          comments.push({
-            ...doc.data(),
-            id: doc.id,
-          })
+        // let comments = []
+        const comments = snap.docs.map((doc) => {
+          //   comments.push({
+          //     ...doc.data(),
+          //     id: doc.id,
+          //   })
+          return { ...doc.data(), id: doc.id }
         })
         context.commit('setComments', comments)
       })

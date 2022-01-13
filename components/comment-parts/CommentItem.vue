@@ -9,11 +9,17 @@
         alt="avatar"
         class="ml-2 mr-4 w-8 h-8 object-cover rounded-full block"
       />
-      <small class="text-gray-600 font-semibold">{{ comment.author }}</small>
+      <small class="text-gray-600 font-semibold">{{
+        comment.author.username
+      }}</small>
     </div>
     <small class="flex justify-end text-gray-600 mb-2">
-      {{ comment.createdAt }}
-      <!-- <Moment format="MMMM Do YYYY">{created_at}</Moment> -->
+      Posted on
+      {{
+        $moment(new Date(comment.createdAt.seconds * 1000)).format(
+          'MMMM Do YYYY h:mm a'
+        )
+      }}
     </small>
     <div class="flex justify-end">
       <i
@@ -29,9 +35,7 @@
 export default {
   props: {
     comment: {
-      type: Array,
-      required: true,
-      default: [],
+      default: null,
     },
   },
   data() {

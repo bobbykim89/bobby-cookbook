@@ -2,10 +2,10 @@
   <div class="w-[90%] lg:w-full mx-auto">
     <CommentForm :postId="postId" />
     <p class="ml-2 mb-4 font-semibold">Comments:</p>
-    <div v-if="comments.length !== 0">
+    <div v-if="comments !== null">
       <CommentItem
         v-for="comment in comments"
-        :key="comment.name"
+        :key="comment.id"
         :comment="comment"
       />
     </div>
@@ -23,8 +23,7 @@ export default {
   },
   props: {
     comments: {
-      type: Array,
-      default: [],
+      default: null,
     },
     postId: {
       required: true,
