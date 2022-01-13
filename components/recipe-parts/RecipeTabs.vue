@@ -28,10 +28,15 @@
     </div>
     <div class="mt-2">
       <div class="bg-white rounded p-3">
-        <div v-if="showIngredients" class="relative p-3 leading-5">
+        <div
+          v-if="showIngredients"
+          class="relative p-3 leading-5 whitespace-pre-line"
+        >
           {{ ingredients }}
         </div>
-        <div v-else class="relative p-3 leading-5">{{ direction }}</div>
+        <div v-else class="relative p-3 leading-5 whitespace-pre-line">
+          {{ direction }}
+        </div>
       </div>
     </div>
   </section>

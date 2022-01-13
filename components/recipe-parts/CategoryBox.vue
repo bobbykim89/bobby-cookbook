@@ -20,6 +20,11 @@
         class="px-4 pt-4 pb-2 text-xl text-gray-600 font-semibold"
       >
         <nuxt-link
+          to="/recipes"
+          class="block mb-2 text-center hover:text-gray-900 transition ease-in duration-150"
+          >See All</nuxt-link
+        >
+        <nuxt-link
           v-for="category in getCategoryList"
           :key="category.id"
           :to="'/recipes/category/' + category.id"

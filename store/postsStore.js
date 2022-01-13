@@ -1,4 +1,4 @@
-import { db } from '@/plugins/firebase'
+import { db, storage } from '@/plugins/firebase'
 import {
   collection,
   query,
@@ -10,6 +10,8 @@ import {
   addDoc,
   arrayUnion,
 } from 'firebase/firestore'
+
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
 // Collection ref
 const colRef = collection(db, 'recipes')
@@ -32,8 +34,17 @@ export const mutations = {
 }
 
 export const actions = {
-  async addPost(context, { title, category, ingredients, direction, author }) {
+  async addPost(
+    context,
+    { title, category, ingredients, direction, author, cover }
+  ) {
     try {
+      // Upload image to store
+      const storeRef = ref(storage, `cover/${cover.name}`)
+      const imageRes = await uploadBytes(storeRef, cover)
+      const imgUrl = await getDownloadURL(ref(storeRef, imageRes.fullPath))
+
+      // Create post
       const res = await addDoc(colRef, {
         title,
         category,
@@ -41,7 +52,10 @@ export const actions = {
         direction,
         author,
         createdAt: serverTimestamp(),
+        cover: imgUrl,
       })
+
+      // Add post id to corresponding category
       await updateDoc(doc(db, 'categories', category), {
         recipes: arrayUnion(res.id),
       })

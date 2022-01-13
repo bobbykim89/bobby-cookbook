@@ -17,6 +17,30 @@
           />
         </div>
         <div class="mb-4">
+          <label
+            for="cover"
+            class="block w-full outline-none bg-gray-100 shadow-md flex justify-between"
+          >
+            <span class="py-3 pl-3">{{
+              inputData.cover !== '' ? inputData.cover.name : ''
+            }}</span>
+            <div
+              class="px-6 py-3 h-full bg-gray-200 inline-block font-semibold"
+            >
+              Browse
+            </div>
+            <input
+              type="file"
+              name="cover"
+              id="cover"
+              @change="handleFile"
+              accept="image/*"
+              required
+              class="hidden"
+            />
+          </label>
+        </div>
+        <div class="mb-4">
           <label for="category" class="text-lg font-semibold">
             Category:
           </label>
@@ -92,12 +116,13 @@ export default {
         category: '',
         ingredients: '',
         direction: '',
+        cover: '',
       },
     }
   },
   methods: {
     handleSubmit() {
-      const { title, category, ingredients, direction } = this.inputData
+      const { title, category, ingredients, direction, cover } = this.inputData
       if (!this.$store.state.authStore.isAuthenticated) {
         console.log('Please Login to create new category!')
         this.$router.push('/login')
@@ -114,11 +139,19 @@ export default {
             category: category,
             ingredients: ingredients,
             direction: direction,
+            cover: cover,
           })
           .then(() => {
             this.$router.push('/recipes')
           })
       }
+    },
+    handleFile(e) {
+      const types = ['image/png', 'image/jpeg', 'image/jpg ']
+      const selectedFile = e.target.files[0]
+      if (selectedFile && types.includes(selectedFile.type)) {
+        this.inputData.cover = selectedFile
+      } else this.inputData.cover = ''
     },
   },
   computed: {
