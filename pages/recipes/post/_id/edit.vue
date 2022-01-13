@@ -113,7 +113,6 @@ export default {
   methods: {
     handleSubmit() {
       const { title, category, ingredients, direction, author } = this.postData
-      console.log(this.postData)
       if (!this.$store.state.authStore.isAuthenticated) {
         console.log('Please Login to create new category!')
         this.$router.push('/login')
@@ -129,7 +128,7 @@ export default {
             direction: direction,
           })
           .then(() => {
-            this.$router.push('/recipes')
+            this.$router.push(`/recipes/post/${this.postId}`)
           })
       }
     },

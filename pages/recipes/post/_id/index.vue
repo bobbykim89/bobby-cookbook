@@ -35,12 +35,13 @@
               >
             </nuxt-link>
             <i
-              class="material-icons text-4xl text-[#f1ac18] hover:text-[#f25b0a] transition ease-in duration-150 align-middle"
+              @click="handleDelete"
+              class="material-icons text-4xl text-[#f1ac18] hover:text-[#f25b0a] transition ease-in duration-150 align-middle cursor-pointer"
               >delete</i
             >
           </div>
           <!-- {isAuthenticated && editAndDelete} -->
-          <button onClick="{copyLink}">
+          <button>
             <i
               class="material-icons text-4xl text-[#d45464] hover:text-[#cc080b] transition ease-in duration-150 align-middle"
               >share</i
@@ -134,6 +135,17 @@ export default {
         }
       )
       return currentComments
+    },
+  },
+  methods: {
+    handleDelete() {
+      this.$store
+        .dispatch('postsStore/deletePost', {
+          id: this.postId,
+        })
+        .then(() => {
+          this.$router.push('/recipes')
+        })
     },
   },
 }

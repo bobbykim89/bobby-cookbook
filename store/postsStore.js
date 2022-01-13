@@ -6,13 +6,22 @@ import {
   serverTimestamp,
   onSnapshot,
   doc,
+  getDoc,
+  deleteDoc,
   updateDoc,
   addDoc,
   arrayUnion,
   arrayRemove,
+  where,
+  getDocs,
 } from 'firebase/firestore'
 
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+} from 'firebase/storage'
 
 // Collection ref
 const colRef = collection(db, 'recipes')
@@ -57,6 +66,7 @@ export const actions = {
         author,
         createdAt: serverTimestamp(),
         cover: imgUrl,
+        coverName: cover.name,
       })
 
       // Add post id to corresponding category
@@ -86,6 +96,33 @@ export const actions = {
       await updateDoc(doc(db, 'categories', category), {
         recipes: arrayUnion(res.id),
       })
+    } catch (err) {
+      console.log(err.message)
+      context.commit('setPostError', err.message)
+    }
+  },
+  async deletePost(context, { id }) {
+    try {
+      const currentPost = await (await getDoc(doc(db, 'recipes', id))).data()
+      // delete all the related comments
+      const relatedComments = await query(
+        collection(db, 'comments'),
+        where('postId', '==', id)
+      )
+      const querySnapshot = await getDocs(relatedComments)
+      await querySnapshot.docs.map((snap) => {
+        return deleteDoc(doc(db, 'comments', snap.id))
+      })
+      // pop id from category recipe array
+      await updateDoc(doc(db, 'categories', currentPost.category), {
+        recipes: arrayRemove(id),
+      })
+      // delete cover image file from storage
+      const storeRef = ref(storage, `cover/${currentPost.coverName}`)
+      await deleteObject(storeRef)
+
+      // delete post
+      await deleteDoc(doc(db, 'recipes', id))
     } catch (err) {
       console.log(err.message)
       context.commit('setPostError', err.message)
