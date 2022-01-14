@@ -827,12 +827,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 80px;
 }
 
-.h-10 {
-  height: 2.5rem;
-}
-
 .h-5 {
   height: 1.25rem;
+}
+
+.h-10 {
+  height: 2.5rem;
 }
 
 .h-\[30vh\] {
@@ -843,12 +843,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 10rem;
 }
 
-.h-20 {
-  height: 5rem;
-}
-
-.h-24 {
-  height: 6rem;
+.h-\[45vh\] {
+  height: 45vh;
 }
 
 .max-h-\[70vh\] {
@@ -895,16 +891,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 95%;
 }
 
-.w-10 {
-  width: 2.5rem;
-}
-
 .w-5 {
   width: 1.25rem;
 }
 
-.w-20 {
-  width: 5rem;
+.w-10 {
+  width: 2.5rem;
 }
 
 .w-28 {
@@ -915,12 +907,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   max-width: 80rem;
 }
 
-.max-w-\[150\%\] {
-  max-width: 150%;
-}
-
 .max-w-md {
   max-width: 28rem;
+}
+
+.max-w-\[150\%\] {
+  max-width: 150%;
 }
 
 .flex-shrink-0 {
@@ -1485,10 +1477,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .opacity-80 {
   opacity: 0.8;
-}
-
-.opacity-60 {
-  opacity: 0.6;
 }
 
 .shadow-xl {

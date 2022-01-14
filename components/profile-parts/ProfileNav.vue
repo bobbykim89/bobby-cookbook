@@ -20,21 +20,25 @@
         class="px-4 pt-4 pb-2 text-xl text-gray-600 font-semibold"
       >
         <button
+          v-on:click="$emit('toggle', 1)"
           class="block mb-2 text-center hover:text-gray-900 transition ease-in duration-150"
         >
           MyPosts
         </button>
         <button
+          v-on:click="$emit('toggle', 2)"
           class="block mb-2 text-center hover:text-gray-900 transition ease-in duration-150"
         >
           Liked Posts
         </button>
         <button
+          v-on:click="$emit('toggle', 3)"
           class="block mb-2 text-center hover:text-gray-900 transition ease-in duration-150"
         >
           Update profile
         </button>
         <button
+          v-on:click="$emit('toggle', 4)"
           class="block mb-2 text-center hover:text-gray-900 transition ease-in duration-150"
         >
           Change Password

@@ -1,7 +1,7 @@
 <template>
   <section>
     <div
-      class="w-full items-center shadow-lg mb-20 relative grid w-full h-[40vh] lg:h-[30vh] h-full"
+      class="w-full items-center shadow-lg mb-20 relative grid w-full h-[45vh] lg:h-[30vh] h-full"
     >
       <img
         :src="this.imageUrl"
@@ -12,7 +12,7 @@
         <img
           :src="this.defaultProfile"
           alt="profile"
-          class="w-28 h-28 object-cover rounded-full border-2 border-white inline-block mb-4"
+          class="w-28 h-28 object-cover rounded-full border-4 border-white inline-block mb-4"
         />
         <h1
           class="self-center text-white font-semibold text-xl capitalize text-shadow-lg"
@@ -27,9 +27,9 @@
     <div class="lg:w-[90%] mx-auto">
       <div class="grid grid-flow-row lg:grid-cols-4 gap-8 mb-20">
         <div class="w-full">
-          <ProfileNav />
+          <ProfileNav v-on:toggle="menuToggler($event)" />
         </div>
-        <div class="lg:col-span-3 grid gap-4">
+        <div v-if="toggleMenu === 1" class="lg:col-span-3 grid gap-4">
           <h1 class="text-4xl font-bold mb-8 ml-3">My Recipes</h1>
           <div class="grid lg:grid-cols-3 gap-4">
             <Card
@@ -39,6 +39,19 @@
             />
           </div>
         </div>
+        <div v-if="toggleMenu === 2" class="lg:col-span-3 gap-4">
+          <h1 class="text-4xl font-bold mb-8 ml-3">Liked Recipes</h1>
+          <div class="grid lg:grid-cols-3 gap-4">
+            <Card
+              v-for="recipe in loadedPosts"
+              :key="recipe.id"
+              :post="recipe"
+            />
+          </div>
+        </div>
+        <div class="lg:col-span-3">
+          <UpdateProfile v-if="toggleMenu === 3" />
+        </div>
       </div>
     </div>
   </section>
@@ -47,17 +60,27 @@
 <script>
 import ProfileNav from '@/components/profile-parts/ProfileNav.vue'
 import Card from '@/components/recipe-parts/Card.vue'
+import UpdateProfile from '@/components/profile-parts/UpdateProfile.vue'
+
 export default {
   components: {
     ProfileNav,
     Card,
+    UpdateProfile,
   },
   data() {
     return {
       imageUrl:
         'https://images.unsplash.com/photo-1542223189-67a03fa0f0bd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1997&q=80',
       defaultProfile: '/images/defaultProfile.jpg',
+      toggleMenu: 1,
+      currentUser: {},
     }
+  },
+  methods: {
+    menuToggler(e) {
+      this.toggleMenu = e
+    },
   },
   computed: {
     loadedPosts() {
