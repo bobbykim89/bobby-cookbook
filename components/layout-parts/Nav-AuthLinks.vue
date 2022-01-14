@@ -18,7 +18,7 @@
               : this.placeholderImages.authorProfile
           "
           alt="avatar"
-          class="ml-2 mr-4 w-8 h-8 object-cover rounded-full inline-block"
+          class="mr-4 w-8 h-8 object-cover rounded-full inline-block"
         />
         {{ getUserInfo.username }}
       </div>

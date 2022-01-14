@@ -42,11 +42,23 @@
               class="material-icons text-4xl text-[#f1ac18] hover:text-[#f25b0a] transition ease-in duration-150 align-middle cursor-pointer"
               >delete</i
             >
+            <i
+              v-if="!checkLike"
+              @click="handleLike"
+              class="material-icons text-4xl text-[#d45464] hover:text-[#cc080b] transition ease-in duration-150 align-middle cursor-pointer"
+              >star_border</i
+            >
+            <i
+              v-else
+              @click="handleUnlike"
+              class="material-icons text-4xl text-[#d45464] hover:text-[#cc080b] transition ease-in duration-150 align-middle cursor-pointer"
+              >star</i
+            >
           </div>
           <button>
             <i
               @click="copyURL"
-              class="material-icons text-4xl text-[#d45464] hover:text-[#cc080b] transition ease-in duration-150 align-middle"
+              class="material-icons text-4xl text-[#f1ac18] hover:text-[#f25b0a] transition ease-in duration-150 align-middle"
               >share</i
             >
           </button>
@@ -98,6 +110,7 @@
       />
     </div>
     <CommentSection :comments="loadComments" :postId="postId" />
+    <button @click="checkLike">miau</button>
   </section>
 </template>
 
@@ -141,6 +154,21 @@ export default {
       )
       return currentComments
     },
+    checkLike() {
+      if (
+        !this.postData.liked ||
+        !this.$store.state.authStore.isAuthenticated
+      ) {
+        console.log(false)
+        return false
+      } else {
+        const checker =
+          this.postData.liked &&
+          this.postData.liked.includes(this.$store.state.authStore.user.uid)
+        console.log(checker)
+        return checker
+      }
+    },
   },
   methods: {
     handleDelete() {
@@ -168,6 +196,34 @@ export default {
     copyURL() {
       const currentUrl = window.location.href
       navigator.clipboard.writeText(currentUrl)
+    },
+    handleLike() {
+      if (!this.$store.state.authStore.isAuthenticated) {
+        console.log('Please login to do so')
+        return
+      } else {
+        this.$store
+          .dispatch('postsStore/likePost', {
+            id: this.postId,
+          })
+          .then(() => {
+            this.$router.go()
+          })
+      }
+    },
+    handleUnlike() {
+      if (!this.$store.state.authStore.isAuthenticated) {
+        console.log('Please login to do so')
+        return
+      } else {
+        this.$store
+          .dispatch('postsStore/unlikePost', {
+            id: this.postId,
+          })
+          .then(() => {
+            this.$router.go()
+          })
+      }
     },
   },
 }

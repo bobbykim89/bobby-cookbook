@@ -1,4 +1,4 @@
-import { db, storage } from '@/plugins/firebase'
+import { db, storage, auth } from '@/plugins/firebase'
 import {
   collection,
   query,
@@ -145,6 +145,34 @@ export const actions = {
         })
 
         context.commit('setPosts', recipes)
+      })
+    } catch (err) {
+      console.log(err.message)
+      context.commit('setPostError', err.message)
+    }
+  },
+  async likePost(context, { id }) {
+    try {
+      // Get current user data
+      const user = auth.currentUser
+
+      // add user uid to liked user list
+      await updateDoc(doc(db, 'recipes', id), {
+        liked: arrayUnion(user.uid),
+      })
+    } catch (err) {
+      console.log(err.message)
+      context.commit('setPostError', err.message)
+    }
+  },
+  async unlikePost(context, { id }) {
+    try {
+      // Get current user data
+      const user = auth.currentUser
+
+      // pop user uid to liked user list
+      await updateDoc(doc(db, 'recipes', id), {
+        liked: arrayRemove(user.uid),
       })
     } catch (err) {
       console.log(err.message)

@@ -7,12 +7,7 @@ import {
   updateProfile,
 } from 'firebase/auth'
 
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  deleteObject,
-} from 'firebase/storage'
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
 export const state = () => ({
   user: null,

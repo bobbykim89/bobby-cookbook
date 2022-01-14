@@ -35,6 +35,7 @@
           <ProfileNav v-on:toggle="menuToggler($event)" />
         </div>
         <div v-if="toggleMenu === 1" class="lg:col-span-3 grid gap-4">
+          <!-- My posts -->
           <h1 class="text-4xl font-bold mb-8 ml-3">My Recipes</h1>
           <div class="grid lg:grid-cols-3 gap-4">
             <Card
@@ -45,10 +46,11 @@
           </div>
         </div>
         <div v-if="toggleMenu === 2" class="lg:col-span-3 gap-4">
+          <!-- Liked posts -->
           <h1 class="text-4xl font-bold mb-8 ml-3">Liked Recipes</h1>
           <div class="grid lg:grid-cols-3 gap-4">
             <Card
-              v-for="recipe in loadMyPosts"
+              v-for="recipe in loadLikedPosts"
               :key="recipe.id"
               :post="recipe"
             />
@@ -98,6 +100,15 @@ export default {
         return post.author.userId === this.$store.state.authStore.user.uid
       })
       return myPosts
+    },
+    loadLikedPosts() {
+      const likedPosts = this.$store.state.postsStore.recipes.filter((post) => {
+        return (
+          post.liked &&
+          post.liked.includes(this.$store.state.authStore.user.uid)
+        )
+      })
+      return likedPosts
     },
   },
 }
