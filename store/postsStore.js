@@ -81,11 +81,14 @@ export const actions = {
   async editPost(context, { id, title, category, ingredients, direction }) {
     try {
       // remove id from current category
-      await updateDoc(doc(db, 'categories', category), {
+      const postOld = await getDoc(doc(db, 'recipes', id))
+      const categoryOld = postOld.data().category
+
+      await updateDoc(doc(db, 'categories', categoryOld), {
         recipes: arrayRemove(id),
       })
       // update the post
-      const res = await updateDoc(doc(db, 'recipes', id), {
+      await updateDoc(doc(db, 'recipes', id), {
         title: title,
         category: category,
         ingredients: ingredients,
@@ -94,7 +97,7 @@ export const actions = {
       })
       // add post id to updated corresponding category
       await updateDoc(doc(db, 'categories', category), {
-        recipes: arrayUnion(res.id),
+        recipes: arrayUnion(id),
       })
     } catch (err) {
       console.log(err.message)
