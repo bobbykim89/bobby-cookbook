@@ -71,8 +71,8 @@
         <div class="flex justify-end items-center mb-2">
           <img
             :src="
-              this.postData.avatar
-                ? this.postData.avatar
+              this.postData.author.avatar
+                ? this.postData.author.avatar
                 : this.placeholderImages.authorProfile
             "
             alt="avatar"
