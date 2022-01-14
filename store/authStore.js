@@ -5,6 +5,9 @@ import {
   signOut,
   onAuthStateChanged,
   updateProfile,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
+  updatePassword,
 } from 'firebase/auth'
 
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
@@ -96,6 +99,24 @@ export const actions = {
           console.log('Profile has updated successfully!')
         })
       }
+    } catch (err) {
+      console.log(err.message)
+      context.commit('setAuthError', err.message)
+    }
+  },
+  async updatePassword(context, { password, newPassword }) {
+    try {
+      const user = auth.currentUser
+
+      // Reauthenticate the user
+      const credential = EmailAuthProvider.credential(user.email, password)
+      await reauthenticateWithCredential(user, credential)
+
+      // update password after re-authentication
+      await updatePassword(user, newPassword).then(() => {
+        console.log('successfully updated password!')
+      })
+      console.log('credential')
     } catch (err) {
       console.log(err.message)
       context.commit('setAuthError', err.message)

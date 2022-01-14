@@ -69,7 +69,21 @@ export default {
   },
   methods: {
     handleSubmit() {
-      console.log(this.inputData)
+      if (!this.$store.state.authStore.isAuthenticated) {
+        console.log('Please login first to do so')
+        return
+      } else if (this.inputData.newPassword !== this.inputData.newPassword2) {
+        console.log('please check your password again!')
+      } else {
+        this.$store
+          .dispatch('authStore/updatePassword', {
+            password: this.inputData.currentPassword,
+            newPassword: this.inputData.newPassword,
+          })
+          .then(() => {
+            this.$router.go()
+          })
+      }
     },
   },
 }
