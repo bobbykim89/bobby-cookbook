@@ -43,16 +43,11 @@
               >delete</i
             >
             <i
-              v-if="!checkLike"
-              @click="handleLike"
+              v-on="
+                !checkLike ? { click: handleLike } : { click: handleUnlike }
+              "
               class="material-icons text-4xl text-[#d45464] hover:text-[#cc080b] transition ease-in duration-150 align-middle cursor-pointer"
-              >star_border</i
-            >
-            <i
-              v-else
-              @click="handleUnlike"
-              class="material-icons text-4xl text-[#d45464] hover:text-[#cc080b] transition ease-in duration-150 align-middle cursor-pointer"
-              >star</i
+              >{{ !checkLike ? 'star_border' : 'star' }}</i
             >
           </div>
           <button>
@@ -110,7 +105,6 @@
       />
     </div>
     <CommentSection :comments="loadComments" :postId="postId" />
-    <button @click="checkLike">miau</button>
   </section>
 </template>
 
