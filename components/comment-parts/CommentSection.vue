@@ -1,6 +1,9 @@
 <template>
   <div class="w-[90%] lg:w-full mx-auto">
-    <CommentForm :postId="postId" />
+    <CommentForm
+      v-if="this.$store.state.authStore.isAuthenticated"
+      :postId="postId"
+    />
     <p class="ml-2 mb-4 font-semibold">Comments:</p>
     <div v-if="comments !== null">
       <CommentItem

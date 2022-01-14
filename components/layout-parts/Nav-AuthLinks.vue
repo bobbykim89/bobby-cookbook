@@ -3,10 +3,20 @@
     class="w-full py-2 text-base lg:text-lg bg-gray-200 lg:bg-transparent rounded-b-md lg:rounded-none"
   >
     <li
+      @click="$emit('close')"
       class="inline-block text-[#d45464] align-middle mx-2 rounded-b-md lg:rounded-none"
     >
-      <span>Welcome! </span>
-      {{ getUserInfo.username }}
+      <div
+        @click="$router.push(`/profile/${getUserInfo.uid}`)"
+        class="flex items-center cursor-pointer"
+      >
+        <img
+          :src="this.placeholderImages.authorProfile"
+          alt="avatar"
+          class="ml-2 mr-4 w-8 h-8 object-cover rounded-full inline-block"
+        />
+        {{ getUserInfo.username }}
+      </div>
     </li>
     <li
       @click="$emit('close')"
@@ -22,6 +32,13 @@
 
 <script>
 export default {
+  data() {
+    return {
+      placeholderImages: {
+        authorProfile: '/images/defaultProfile.jpg',
+      },
+    }
+  },
   computed: {
     getUserInfo() {
       const userInfo = this.$store.state.authStore.user
@@ -29,6 +46,7 @@ export default {
       return {
         email: userInfo.email,
         username: userInfo.displayName,
+        uid: userInfo.uid,
       }
     },
   },

@@ -27,7 +27,10 @@
               >arrow_back</i
             >
           </nuxt-link>
-          <div class="inline-block">
+          <div
+            v-if="this.$store.state.authStore.isAuthenticated"
+            class="inline-block"
+          >
             <nuxt-link :to="`/recipes/post/${postId}/edit`"
               ><i
                 class="material-icons text-4xl text-[#d45464] hover:text-[#cc080b] transition ease-in duration-150 align-middle"
@@ -40,9 +43,9 @@
               >delete</i
             >
           </div>
-          <!-- {isAuthenticated && editAndDelete} -->
           <button>
             <i
+              @click="copyURL"
               class="material-icons text-4xl text-[#d45464] hover:text-[#cc080b] transition ease-in duration-150 align-middle"
               >share</i
             >
@@ -105,7 +108,6 @@ export default {
     RecipeTabs,
     CommentSection,
   },
-  middleware: 'loadComments',
   data() {
     return {
       placeholderImages: {
@@ -128,7 +130,6 @@ export default {
   },
   computed: {
     loadComments() {
-      // return this.$store.getters['commentStore/getComments']
       const currentComments = this.$store.state.commentStore.comments.filter(
         (comment) => {
           return comment.postId === this.postId
@@ -139,16 +140,31 @@ export default {
   },
   methods: {
     handleDelete() {
-      this.$store
-        .dispatch('postsStore/deletePost', {
-          id: this.postId,
-        })
-        .then(() => {
-          this.$router.push('/recipes')
-        })
+      if (
+        this.$store.state.authStore.user.uid !== this.postData.author.userId
+      ) {
+        console.log('You are not authorized to do so')
+        this.$router.go()
+      } else {
+        if (
+          confirm(
+            'This will permanently delete this recipe and related comments. Please confirm to proceed.'
+          )
+        ) {
+          this.$store
+            .dispatch('postsStore/deletePost', {
+              id: this.postId,
+            })
+            .then(() => {
+              this.$router.push('/recipes')
+            })
+        }
+      }
+    },
+    copyURL() {
+      const currentUrl = window.location.href
+      navigator.clipboard.writeText(currentUrl)
     },
   },
 }
 </script>
-
-<style></style>

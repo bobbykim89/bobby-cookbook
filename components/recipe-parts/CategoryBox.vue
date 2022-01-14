@@ -33,6 +33,7 @@
         </nuxt-link>
         <button
           @click="$emit('toggle')"
+          v-if="this.$store.state.authStore.isAuthenticated"
           class="block w-full text-center hover:text-gray-900 cursor-pointer transition ease-in duration-150"
         >
           +

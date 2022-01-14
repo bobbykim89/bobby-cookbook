@@ -20,6 +20,7 @@ export default {
     Navbar,
     Footer,
   },
+  // middleware: ['loadData', 'loadUserInfo'],
   mounted() {
     this.onPageLoad()
   },
@@ -28,6 +29,7 @@ export default {
       this.$store.dispatch('authStore/loadUser')
       this.$store.dispatch('categoryStore/loadCategories')
       this.$store.dispatch('postsStore/loadPosts')
+      this.$store.dispatch('commentStore/loadComments')
     },
   },
 }

@@ -22,7 +22,12 @@
       }}
     </small>
     <div class="flex justify-end">
+      <span class="text-2xl"></span>
       <i
+        v-if="
+          this.$store.state.authStore.isAuthenticated &&
+          this.$store.state.authStore.user.uid === this.comment.author.userId
+        "
         @click="handleDelete"
         class="material-icons text-2xl text-gray-600 hover:text-gray-500 cursor-pointer"
         >delete</i
@@ -47,16 +52,26 @@ export default {
   },
   methods: {
     handleDelete() {
-      console.log('Deleting this comment!')
-      console.log(this.comment.id, this.$route.params.id)
-      this.$store
-        .dispatch('commentStore/deleteComment', {
-          id: this.comment.id,
-          postId: this.$route.params.id,
-        })
-        .then(() => {
-          this.$router.go()
-        })
+      if (!this.$store.state.authStore.isAuthenticated) {
+        console.log('Please Login to create new post!')
+        this.$router.push('/login')
+      } else if (
+        this.$store.state.authStore.user.uid !== this.comment.author.userId
+      ) {
+        console.log('You are not authorized to do so')
+        this.$router.go()
+      } else {
+        if (
+          confirm(
+            'This will permanently delete this comment. Please confirm to proceed.'
+          )
+        ) {
+          this.$store.dispatch('commentStore/deleteComment', {
+            id: this.comment.id,
+            postId: this.$route.params.id,
+          })
+        }
+      }
     },
   },
 }
