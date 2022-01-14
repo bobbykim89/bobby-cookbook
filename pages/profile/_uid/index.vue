@@ -10,7 +10,12 @@
       />
       <div class="relative inline-block mx-auto self-center text-center">
         <img
-          :src="this.defaultProfile"
+          :src="
+            this.$store.state.authStore.isAuthenticated &&
+            this.$store.state.authStore.user.photoURL
+              ? this.$store.state.authStore.user.photoURL
+              : this.defaultProfile
+          "
           alt="profile"
           class="w-28 h-28 object-cover rounded-full border-4 border-white inline-block mb-4"
         />
@@ -33,7 +38,7 @@
           <h1 class="text-4xl font-bold mb-8 ml-3">My Recipes</h1>
           <div class="grid lg:grid-cols-3 gap-4">
             <Card
-              v-for="recipe in loadedPosts"
+              v-for="recipe in loadMyPosts"
               :key="recipe.id"
               :post="recipe"
             />
@@ -43,14 +48,17 @@
           <h1 class="text-4xl font-bold mb-8 ml-3">Liked Recipes</h1>
           <div class="grid lg:grid-cols-3 gap-4">
             <Card
-              v-for="recipe in loadedPosts"
+              v-for="recipe in loadMyPosts"
               :key="recipe.id"
               :post="recipe"
             />
           </div>
         </div>
-        <div class="lg:col-span-3">
-          <UpdateProfile v-if="toggleMenu === 3" />
+        <div v-if="toggleMenu === 3" class="lg:col-span-3">
+          <UpdateProfile />
+        </div>
+        <div v-if="toggleMenu === 4" class="lg:col-span-3">
+          <UpdatePassword />
         </div>
       </div>
     </div>
@@ -61,12 +69,14 @@
 import ProfileNav from '@/components/profile-parts/ProfileNav.vue'
 import Card from '@/components/recipe-parts/Card.vue'
 import UpdateProfile from '@/components/profile-parts/UpdateProfile.vue'
+import UpdatePassword from '@/components/profile-parts/UpdatePassword.vue'
 
 export default {
   components: {
     ProfileNav,
     Card,
     UpdateProfile,
+    UpdatePassword,
   },
   data() {
     return {
@@ -83,9 +93,11 @@ export default {
     },
   },
   computed: {
-    loadedPosts() {
-      //   return this.$store.getters['postsStore/getPosts']
-      return this.$store.state.postsStore.recipes
+    loadMyPosts() {
+      const myPosts = this.$store.state.postsStore.recipes.filter((post) => {
+        return post.author.userId === this.$store.state.authStore.user.uid
+      })
+      return myPosts
     },
   },
 }

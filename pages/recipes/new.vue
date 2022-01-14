@@ -25,7 +25,7 @@
               inputData.cover !== '' ? inputData.cover.name : ''
             }}</span>
             <div
-              class="px-6 py-3 h-full bg-gray-200 inline-block font-semibold"
+              class="px-6 py-3 h-full bg-gray-200 hover:bg-gray-300 inline-block font-semibold"
             >
               Browse
             </div>
@@ -123,6 +123,7 @@ export default {
   methods: {
     handleSubmit() {
       const { title, category, ingredients, direction, cover } = this.inputData
+      const user = this.$store.state.authStore.user
       if (!this.$store.state.authStore.isAuthenticated) {
         console.log('Please Login to create new post!')
         this.$router.push('/login')
@@ -131,8 +132,9 @@ export default {
           .dispatch('postsStore/addPost', {
             title: title,
             author: {
-              username: this.$store.state.authStore.user.displayName,
-              userId: this.$store.state.authStore.user.uid,
+              username: user.displayName,
+              userId: user.uid,
+              avatar: (user.photoURL && user.photoURL) || null,
             },
             category: category,
             ingredients: ingredients,

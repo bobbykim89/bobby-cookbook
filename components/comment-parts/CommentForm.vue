@@ -35,6 +35,7 @@ export default {
   },
   methods: {
     handleSubmit() {
+      const user = this.$store.state.authStore.user
       if (!this.$store.state.authStore.isAuthenticated) {
         console.log('Please Login to create new post!')
         this.$router.push('/login')
@@ -43,8 +44,9 @@ export default {
           .dispatch('commentStore/addComment', {
             message: this.message,
             author: {
-              username: this.$store.state.authStore.user.displayName,
-              userId: this.$store.state.authStore.user.uid,
+              username: user.displayName,
+              userId: user.uid,
+              avatar: user.photoURL,
             },
             postId: this.postId,
           })

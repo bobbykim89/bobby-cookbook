@@ -28,8 +28,8 @@
       <div class="flex flex-center items-center mb-4">
         <img
           :src="
-            post.author.profile
-              ? post.author.profile
+            post.author.avatar
+              ? post.author.avatar
               : this.placeholderImages.authorProfile
           "
           alt="avatar"

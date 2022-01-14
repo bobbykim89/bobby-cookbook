@@ -8,7 +8,7 @@
             : this.placeholderImages.cover
         "
         alt="cover"
-        class="max-h-[70vh] w-full object-cover object-center"
+        class="max-h-[40vh] lg:max-h-[70vh] w-full object-cover object-center"
       />
     </div>
     <div class="w-[90%] lg:w-full mx-auto mb-8">
@@ -63,7 +63,11 @@
 
         <div class="flex justify-end items-center mb-2">
           <img
-            :src="this.placeholderImages.authorProfile"
+            :src="
+              this.postData.avatar
+                ? this.postData.avatar
+                : this.placeholderImages.authorProfile
+            "
             alt="avatar"
             class="ml-2 mr-4 w-10 h-10 object-cover rounded-full block"
           />

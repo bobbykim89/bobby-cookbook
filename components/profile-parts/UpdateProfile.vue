@@ -29,7 +29,7 @@
                 : ''
             }}</span>
             <div
-              class="px-6 py-3 h-full bg-gray-200 inline-block font-semibold"
+              class="px-6 py-3 h-full bg-gray-200 hover:bg-gray-300 inline-block font-semibold"
             >
               Browse
             </div>
@@ -39,7 +39,6 @@
               id="profileImage"
               @change="handleFile"
               accept="image/*"
-              required
               class="hidden"
             />
           </label>
@@ -71,7 +70,19 @@ export default {
   },
   methods: {
     handleSubmit() {
-      console.log(this.profileInfo.displayName, this.profileInfo.profileImage)
+      if (!this.$store.state.authStore.isAuthenticated) {
+        console.log('Please login to edit profile picture')
+        return
+      } else {
+        this.$store
+          .dispatch('authStore/updateUserProfile', {
+            displayName: this.profileInfo.displayName,
+            profileImage: this.profileInfo.profileImage,
+          })
+          .then(() => {
+            this.$router.go()
+          })
+      }
     },
     handleFile(e) {
       const types = ['image/png', 'image/jpeg', 'image/jpg ']

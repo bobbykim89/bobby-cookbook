@@ -1,4 +1,4 @@
-import { auth } from '~/plugins/firebase'
+import { auth, storage } from '~/plugins/firebase'
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -6,6 +6,13 @@ import {
   onAuthStateChanged,
   updateProfile,
 } from 'firebase/auth'
+
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+} from 'firebase/storage'
 
 export const state = () => ({
   user: null,
@@ -45,7 +52,7 @@ export const actions = {
       const res = await signInWithEmailAndPassword(auth, email, password)
       context.commit('setUser', res.user)
     } catch (err) {
-      console.log(err.value)
+      console.log(err.message)
       const errMessage = 'Incorrect login credentials'
       context.commit('setAuthError', errMessage)
     }
@@ -64,6 +71,40 @@ export const actions = {
         context.commit('setAuthentication', false)
       }
     })
+  },
+  async updateUserProfile(context, { displayName, profileImage }) {
+    try {
+      // Get current user data
+      const user = auth.currentUser
+
+      if (profileImage === '') {
+        // Update user profile info without profile image
+        updateProfile(user, {
+          displayName: displayName,
+        }).then(() => {
+          console.log('Profile has updated successfully!')
+        })
+      } else {
+        // upload image and get download path
+        const storeRef = ref(
+          storage,
+          `profile/${user.uid}/${profileImage.name}`
+        )
+        const imageRes = await uploadBytes(storeRef, profileImage)
+        const imgUrl = await getDownloadURL(ref(storeRef, imageRes.fullPath))
+
+        // Update user profile info
+        updateProfile(user, {
+          displayName: displayName,
+          photoURL: imgUrl,
+        }).then(() => {
+          console.log('Profile has updated successfully!')
+        })
+      }
+    } catch (err) {
+      console.log(err.message)
+      context.commit('setAuthError', err.message)
+    }
   },
 }
 

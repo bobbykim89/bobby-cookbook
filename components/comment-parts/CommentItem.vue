@@ -5,7 +5,11 @@
     <p class="mb-4">{{ comment.message }}</p>
     <div class="flex justify-end text-gray-600 items-center">
       <img
-        :src="this.placeholderImages.authorProfile"
+        :src="
+          comment.author.avatar
+            ? comment.author.avatar
+            : this.placeholderImages.authorProfile
+        "
         alt="avatar"
         class="ml-2 mr-4 w-8 h-8 object-cover rounded-full block"
       />

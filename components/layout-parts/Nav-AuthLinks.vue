@@ -11,7 +11,12 @@
         class="flex items-center cursor-pointer"
       >
         <img
-          :src="this.placeholderImages.authorProfile"
+          :src="
+            this.$store.state.authStore.isAuthenticated &&
+            this.$store.state.authStore.user.photoURL
+              ? this.$store.state.authStore.user.photoURL
+              : this.placeholderImages.authorProfile
+          "
           alt="avatar"
           class="ml-2 mr-4 w-8 h-8 object-cover rounded-full inline-block"
         />
