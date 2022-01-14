@@ -86,7 +86,6 @@ export default {
         { name: 'Home', to: '/' },
         { name: 'Recipes', to: '/recipes' },
         { name: 'About', to: '/about' },
-        { name: 'Contact', to: '/contact' },
       ],
       navScroll: false,
     }
@@ -95,13 +94,6 @@ export default {
     handleHamburger() {
       this.navbarOpen = !this.navbarOpen
     },
-    // checkAuth() {
-    //   if (this.$store.state.authStore.isAuthenticated === true) {
-    //     this.isAuthenticated = true
-    //   } else {
-    //     this.isAuthenticated = false
-    //   }
-    // },
     handleScroll() {
       if (window.scrollY >= 50) {
         this.navScroll = true
@@ -115,17 +107,6 @@ export default {
       return this.$store.state.authStore.isAuthenticated
     },
   },
-  // watch: {
-  //   '$store.authStore': {
-  //     handler() {
-  //       this.checkAuth()
-  //     },
-  //     immediate: true,
-  //   },
-  // },
-  // mounted() {
-  //   this.checkAuth()
-  // },
   beforeMount() {
     window.addEventListener('scroll', this.handleScroll)
   },
