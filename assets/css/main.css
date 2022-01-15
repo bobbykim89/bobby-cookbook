@@ -642,10 +642,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   grid-row-start: 4;
 }
 
-.m-4 {
-  margin: 1rem;
-}
-
 .my-5 {
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
@@ -903,16 +899,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 2.5rem;
 }
 
-.w-28 {
-  width: 7rem;
-}
-
 .w-\[80\%\] {
   width: 80%;
 }
 
-.w-\[50\%\] {
-  width: 50%;
+.w-28 {
+  width: 7rem;
 }
 
 .max-w-7xl {
@@ -1647,9 +1639,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(55 65 81 / var(--tw-text-opacity));
 }
 
-.hover\:text-\[\#f1ac18\]:hover {
+.hover\:text-\[\#f25b0a\]:hover {
   --tw-text-opacity: 1;
-  color: rgb(241 172 24 / var(--tw-text-opacity));
+  color: rgb(242 91 10 / var(--tw-text-opacity));
+}
+
+.hover\:text-\[\#d45464\]:hover {
+  --tw-text-opacity: 1;
+  color: rgb(212 84 100 / var(--tw-text-opacity));
 }
 
 .hover\:text-gray-900:hover {
@@ -1657,24 +1654,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(17 24 39 / var(--tw-text-opacity));
 }
 
-.hover\:text-\[\#f25b0a\]:hover {
-  --tw-text-opacity: 1;
-  color: rgb(242 91 10 / var(--tw-text-opacity));
-}
-
 .hover\:text-\[\#cc080b\]:hover {
   --tw-text-opacity: 1;
   color: rgb(204 8 11 / var(--tw-text-opacity));
-}
-
-.hover\:text-pink-500:hover {
-  --tw-text-opacity: 1;
-  color: rgb(236 72 153 / var(--tw-text-opacity));
-}
-
-.hover\:text-\[\#d45464\]:hover {
-  --tw-text-opacity: 1;
-  color: rgb(212 84 100 / var(--tw-text-opacity));
 }
 
 .hover\:underline:hover {
@@ -1898,20 +1880,16 @@ Ensure the default browser behavior of the `hidden` attribute.
     height: 100vh;
   }
 
+  .lg\:h-\[35vh\] {
+    height: 35vh;
+  }
+
   .lg\:h-60 {
     height: 15rem;
   }
 
   .lg\:h-\[30vh\] {
     height: 30vh;
-  }
-
-  .lg\:h-\[35vh\] {
-    height: 35vh;
-  }
-
-  .lg\:max-h-\[40vh\] {
-    max-height: 40vh;
   }
 
   .lg\:max-h-\[70vh\] {
@@ -1938,12 +1916,12 @@ Ensure the default browser behavior of the `hidden` attribute.
     width: 50%;
   }
 
-  .lg\:w-\[90\%\] {
-    width: 90%;
-  }
-
   .lg\:w-\[50\%\] {
     width: 50%;
+  }
+
+  .lg\:w-\[90\%\] {
+    width: 90%;
   }
 
   .lg\:max-w-2xl {
@@ -2036,16 +2014,16 @@ Ensure the default browser behavior of the `hidden` attribute.
     margin-top: 7rem;
   }
 
+  .xl\:w-\[80\%\] {
+    width: 80%;
+  }
+
   .xl\:w-3\/5 {
     width: 60%;
   }
 
   .xl\:w-\[40\%\] {
     width: 40%;
-  }
-
-  .xl\:w-\[80\%\] {
-    width: 80%;
   }
 
   .xl\:pb-32 {
@@ -2064,9 +2042,5 @@ Ensure the default browser behavior of the `hidden` attribute.
 
   .\32xl\:w-\[30\%\] {
     width: 30%;
-  }
-
-  .\32xl\:w-\[660\%\] {
-    width: 660%;
   }
 }

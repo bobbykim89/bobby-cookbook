@@ -199,7 +199,7 @@ export default {
             id: this.postId,
           })
           .then(() => {
-            location.reload()
+            this.$router.go()
           })
       }
     },
@@ -213,7 +213,7 @@ export default {
             id: this.postId,
           })
           .then(() => {
-            location.reload()
+            this.$router.go()
           })
       }
     },
