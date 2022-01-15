@@ -46,11 +46,9 @@
 export default {
   props: {
     ingredients: {
-      type: String,
       required: true,
     },
     direction: {
-      type: String,
       required: true,
     },
   },

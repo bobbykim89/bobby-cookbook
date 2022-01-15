@@ -89,10 +89,10 @@ export const actions = {
 
 // Getters
 export const getters = {
-  getComments() {
+  getComments(state) {
     return state.comments
   },
-  getCommentError() {
+  getCommentError(state) {
     return state.commentError
   },
 }

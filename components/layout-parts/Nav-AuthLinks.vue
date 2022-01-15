@@ -6,21 +6,20 @@
       @click="$emit('close')"
       class="inline-block text-[#d45464] align-middle mx-2 rounded-b-md lg:rounded-none"
     >
-      <div
-        @click="$router.push(`/profile/${getUserInfo.uid}`)"
-        class="flex items-center cursor-pointer"
-      >
-        <img
-          :src="
-            this.$store.state.authStore.isAuthenticated &&
-            this.$store.state.authStore.user.photoURL
-              ? this.$store.state.authStore.user.photoURL
-              : this.placeholderImages.authorProfile
-          "
-          alt="avatar"
-          class="mr-4 w-8 h-8 object-cover rounded-full inline-block"
-        />
-        {{ getUserInfo.username }}
+      <div class="flex items-center">
+        <a :href="`/profile/${getUserInfo.uid}`">
+          <img
+            :src="
+              this.$store.state.authStore.isAuthenticated &&
+              this.$store.state.authStore.user.photoURL
+                ? this.$store.state.authStore.user.photoURL
+                : this.placeholderImages.authorProfile
+            "
+            alt="avatar"
+            class="mr-4 w-8 h-8 object-cover rounded-full inline-block"
+          />
+          {{ getUserInfo.username }}
+        </a>
       </div>
     </li>
     <li

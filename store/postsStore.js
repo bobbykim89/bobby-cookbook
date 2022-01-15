@@ -40,6 +40,9 @@ export const mutations = {
   setPosts(state, payload) {
     state.recipes = payload
   },
+  setPost(state, payload) {
+    state.currentPost = payload
+  },
   setPostError(state, payload) {
     state.postError = payload
   },
@@ -186,10 +189,10 @@ export const actions = {
 
 // Getters
 export const getters = {
-  getPosts() {
+  getPosts(state) {
     return state.recipes
   },
-  getPostError() {
+  getPostError(state) {
     return state.postError
   },
 }

@@ -23,7 +23,6 @@ export const state = () => ({
 export const mutations = {
   setUser(state, payload) {
     state.user = payload
-    console.log('user state changed: ', state.user)
   },
   setAuthentication(state, payload) {
     state.isAuthenticated = payload

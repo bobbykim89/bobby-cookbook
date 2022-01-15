@@ -3,8 +3,8 @@
     <div class="mb-8 shadow-xl">
       <img
         :src="
-          this.postData.cover
-            ? this.postData.cover
+          postData && postData.cover
+            ? postData.cover
             : this.placeholderImages.cover
         "
         alt="cover"
@@ -15,7 +15,7 @@
       <h1
         class="text-4xl lg:text-7xl capitalize font-bold tracking-wider ml-3 mb-4"
       >
-        {{ this.postData.title }}
+        {{ postData && postData.title }}
       </h1>
       <div class="mb-8">
         <div
@@ -58,50 +58,47 @@
             >
           </button>
           <nuxt-link
-            :to="`/recipes/category/${this.postData.category}`"
-            class="inline-block px-3 py-2 ml-2 rounded bg-[#d45464] hover:bg-[#cc080b] text-white capitalize border border-[#d45464] hover:border-[#cc080b] transition ease-in duration-150"
+            :to="`/recipes/category/${postData && postData.category}`"
+            class="inline-block px-3 py-2 ml-2 rounded bg-[#d45464] hover:bg-[#cc080b] text-white capitalize border border-[#d45464] hover:border-[#cc080b] transition ease-in duration-150 capitalize"
           >
-            {{
-              this.postData.categoryName.charAt(0).toUpperCase() +
-              this.postData.categoryName.slice(1)
-            }}
+            {{ postData && postData.categoryName }}
           </nuxt-link>
         </div>
 
         <div class="flex justify-end items-center mb-2">
           <img
             :src="
-              this.postData.author.avatar
-                ? this.postData.author.avatar
+              postData && postData.author.avatar
+                ? postData.author.avatar
                 : this.placeholderImages.authorProfile
             "
             alt="avatar"
             class="ml-2 mr-4 w-10 h-10 object-cover rounded-full block"
           />
           <h3 class="text-gray-700 font-semibold">
-            {{ this.postData.author.username }}
+            {{ postData && postData.author.username }}
           </h3>
         </div>
-        <p v-if="!this.postData.updatedAt" class="text-right mb-4">
+        <p v-if="postData && !postData.updatedAt" class="text-right mb-4">
           Posted on
           {{
-            $moment(new Date(postData.createdAt.seconds * 1000)).format(
-              'MMMM Do YYYY'
-            )
+            $moment(
+              new Date(postData && postData.createdAt.seconds * 1000)
+            ).format('MMMM Do YYYY')
           }}
         </p>
         <p v-else class="text-right mb-4">
           Edited on
           {{
-            $moment(new Date(postData.updatedAt.seconds * 1000)).format(
-              'MMMM Do YYYY'
-            )
+            $moment(
+              new Date(postData && postData.updatedAt.seconds * 1000)
+            ).format('MMMM Do YYYY')
           }}
         </p>
       </div>
       <RecipeTabs
-        :ingredients="postData.ingredients"
-        :direction="postData.direction"
+        :ingredients="postData && postData.ingredients"
+        :direction="postData && postData.direction"
       />
     </div>
     <CommentSection :comments="loadComments" :postId="postId" />
@@ -131,10 +128,8 @@ export default {
   async asyncData(context) {
     const docRef = doc(db, 'recipes', context.params.id)
     const docSnap = await getDoc(docRef)
-
     const result = await docSnap.data()
     const getCategory = await getDoc(doc(db, 'categories', result.category))
-
     return {
       postData: { ...result, categoryName: getCategory.data().name },
     }
@@ -150,13 +145,14 @@ export default {
     },
     checkLike() {
       if (
-        !this.postData.liked ||
+        (this.postData && !this.postData.liked) ||
         !this.$store.state.authStore.isAuthenticated
       ) {
         console.log(false)
         return false
       } else {
         const checker =
+          this.postData &&
           this.postData.liked &&
           this.postData.liked.includes(this.$store.state.authStore.user.uid)
         console.log(checker)
