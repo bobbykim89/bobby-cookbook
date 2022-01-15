@@ -37,10 +37,12 @@
             Just a guy who loves to cook
           </h1>
           <p class="mb-6">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, facere
-            expedita voluptatibus itaque dolore praesentium quos, velit quidem
-            impedit obcaecati rem deleniti voluptatum temporibus enim explicabo!
-            Placeat obcaecati laboriosam beatae?
+            I am a web developer, and cooking is one of my favorite hobbies. My
+            first cooking experience was when I was serving military as a cook.
+            I found cooking really destressing, and it is always great
+            experience for me to see my family and friends enjoying my food. I
+            like to try cooking different foods from different countries and
+            improve my skills.
           </p>
           <p class="block p-2 bg-white shadow-xl" />
         </div>

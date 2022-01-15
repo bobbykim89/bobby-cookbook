@@ -26,9 +26,11 @@
             <p
               class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0"
             >
-              Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-              lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
-              fugiat aliqua.
+              Bobby’s Cookbook is a online cookbook webapp for people who like
+              to look up on recipes quickly without any advertisement or
+              scrolling all the way down to ingredients and direction. Everyone
+              is welcomed to share their recipes and hope you have great cooking
+              experience!
             </p>
             <div
               class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start"
