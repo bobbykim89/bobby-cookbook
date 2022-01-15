@@ -27,17 +27,25 @@
             v-if="this.$store.state.authStore.isAuthenticated"
             class="inline-block"
           >
-            <a :href="`/recipes/post/${postId}/edit`"
-              ><i
-                class="material-icons text-4xl text-[#d45464] hover:text-[#cc080b] transition ease-in duration-150 align-middle"
-                >edit</i
-              >
-            </a>
-            <i
-              @click="handleDelete"
-              class="material-icons text-4xl text-[#f1ac18] hover:text-[#f25b0a] transition ease-in duration-150 align-middle cursor-pointer"
-              >delete</i
+            <div
+              v-if="
+                this.$store.getters['authStore/getUser'].uid ===
+                postData.author.userId
+              "
+              class="inline-block"
             >
+              <a :href="`/recipes/post/${postId}/edit`"
+                ><i
+                  class="material-icons text-4xl text-[#d45464] hover:text-[#cc080b] transition ease-in duration-150 align-middle"
+                  >edit</i
+                >
+              </a>
+              <i
+                @click="handleDelete"
+                class="material-icons text-4xl text-[#f1ac18] hover:text-[#f25b0a] transition ease-in duration-150 align-middle cursor-pointer"
+                >delete</i
+              >
+            </div>
             <i
               v-on="
                 !checkLike ? { click: handleLike } : { click: handleUnlike }

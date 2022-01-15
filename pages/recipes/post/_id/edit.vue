@@ -122,6 +122,7 @@ export default {
         this.$store.getters['authStore/getUser'].uid !== author.userId
       ) {
         console.log('You are not authorized to do so.')
+        this.$router.push(`/recipes/post/${this.postId}`)
       } else {
         this.$store
           .dispatch('postsStore/editPost', {
