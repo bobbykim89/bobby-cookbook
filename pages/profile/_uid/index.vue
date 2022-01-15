@@ -1,7 +1,7 @@
 <template>
   <section>
     <div
-      class="w-full items-center shadow-lg mb-20 relative grid w-full h-[45vh] lg:h-[30vh] h-full"
+      class="w-full items-center shadow-lg mb-20 relative grid h-[45vh] lg:h-[30vh] h-full"
     >
       <img
         :src="this.imageUrl"

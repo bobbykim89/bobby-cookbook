@@ -1,12 +1,8 @@
 <template>
   <section class="lg:w-2/3 mx-auto py-20">
-    <div class="mb-8 shadow-xl">
+    <div class="mb-8 shadow-xl grid">
       <img
-        :src="
-          postData && postData.cover
-            ? postData.cover
-            : this.placeholderImages.cover
-        "
+        :src="postData.cover ? postData.cover : this.placeholderImages.cover"
         alt="cover"
         class="max-h-[40vh] lg:max-h-[70vh] w-full object-cover object-center"
       />
@@ -15,7 +11,7 @@
       <h1
         class="text-4xl lg:text-7xl capitalize font-bold tracking-wider ml-3 mb-4"
       >
-        {{ postData && postData.title }}
+        {{ postData.title }}
       </h1>
       <div class="mb-8">
         <div
@@ -58,17 +54,17 @@
             >
           </button>
           <nuxt-link
-            :to="`/recipes/category/${postData && postData.category}`"
+            :to="`/recipes/category/${postData.category}`"
             class="inline-block px-3 py-2 ml-2 rounded bg-[#d45464] hover:bg-[#cc080b] text-white capitalize border border-[#d45464] hover:border-[#cc080b] transition ease-in duration-150 capitalize"
           >
-            {{ postData && postData.categoryName }}
+            {{ postData.categoryName }}
           </nuxt-link>
         </div>
 
         <div class="flex justify-end items-center mb-2">
           <img
             :src="
-              postData && postData.author.avatar
+              postData.author.avatar
                 ? postData.author.avatar
                 : this.placeholderImages.authorProfile
             "
@@ -76,29 +72,29 @@
             class="ml-2 mr-4 w-10 h-10 object-cover rounded-full block"
           />
           <h3 class="text-gray-700 font-semibold">
-            {{ postData && postData.author.username }}
+            {{ postData.author.username }}
           </h3>
         </div>
-        <p v-if="postData && !postData.updatedAt" class="text-right mb-4">
+        <p v-if="!postData.updatedAt" class="text-right mb-4">
           Posted on
           {{
-            $moment(
-              new Date(postData && postData.createdAt.seconds * 1000)
-            ).format('MMMM Do YYYY')
+            $moment(new Date(postData.createdAt.seconds * 1000)).format(
+              'MMMM Do YYYY'
+            )
           }}
         </p>
         <p v-else class="text-right mb-4">
           Edited on
           {{
-            $moment(
-              new Date(postData && postData.updatedAt.seconds * 1000)
-            ).format('MMMM Do YYYY')
+            $moment(new Date(postData.updatedAt.seconds * 1000)).format(
+              'MMMM Do YYYY'
+            )
           }}
         </p>
       </div>
       <RecipeTabs
-        :ingredients="postData && postData.ingredients"
-        :direction="postData && postData.direction"
+        :ingredients="postData.ingredients"
+        :direction="postData.direction"
       />
     </div>
     <CommentSection :comments="loadComments" :postId="postId" />
@@ -145,17 +141,15 @@ export default {
     },
     checkLike() {
       if (
-        (this.postData && !this.postData.liked) ||
+        !this.postData.liked ||
         !this.$store.state.authStore.isAuthenticated
       ) {
         console.log(false)
         return false
       } else {
         const checker =
-          this.postData &&
           this.postData.liked &&
           this.postData.liked.includes(this.$store.state.authStore.user.uid)
-        console.log(checker)
         return checker
       }
     },
@@ -197,7 +191,7 @@ export default {
             id: this.postId,
           })
           .then(() => {
-            this.$router.go()
+            location.reload()
           })
       }
     },
@@ -211,7 +205,7 @@ export default {
             id: this.postId,
           })
           .then(() => {
-            this.$router.go()
+            location.reload()
           })
       }
     },
