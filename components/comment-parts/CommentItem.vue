@@ -20,17 +20,18 @@
     <small class="flex justify-end text-gray-600 mb-2">
       Posted on
       {{
-        $moment(new Date(comment.createdAt.seconds * 1000)).format(
-          'MMMM Do YYYY h:mm a'
-        )
+        $moment(
+          new Date(comment.createdAt && comment.createdAt.seconds * 1000)
+        ).format('MMMM Do YYYY h:mm a')
       }}
     </small>
     <div class="flex justify-end">
       <span class="text-2xl"></span>
       <i
         v-if="
-          this.$store.state.authStore.isAuthenticated &&
-          this.$store.state.authStore.user.uid === this.comment.author.userId
+          this.$store.getters['authStore/getAuthentication'] &&
+          this.$store.getters['authStore/getUser'].uid ===
+            this.comment.author.userId
         "
         @click="handleDelete"
         class="material-icons text-2xl text-gray-600 hover:text-gray-500 cursor-pointer"
@@ -56,11 +57,12 @@ export default {
   },
   methods: {
     handleDelete() {
-      if (!this.$store.state.authStore.isAuthenticated) {
+      if (!this.$store.getters['authStore/getAuthentication']) {
         console.log('Please Login to create new post!')
         this.$router.push('/login')
       } else if (
-        this.$store.state.authStore.user.uid !== this.comment.author.userId
+        this.$store.getters['authStore/getUser'].uid !==
+        this.comment.author.userId
       ) {
         console.log('You are not authorized to do so')
         this.$router.go()

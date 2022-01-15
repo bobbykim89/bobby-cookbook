@@ -41,6 +41,11 @@ export default {
       pageId: this.$route.params.id,
     }
   },
+  head() {
+    return {
+      title: `${this.categoryName}`,
+    }
+  },
   methods: {
     toggleModal() {
       this.showModal = !this.showModal
@@ -48,19 +53,17 @@ export default {
   },
   computed: {
     loadedPosts() {
-      const currentCategory = this.$store.state.postsStore.recipes.filter(
-        (recipe) => {
-          return recipe.category === this.pageId
-        }
-      )
+      const getPosts = this.$store.getters['postsStore/getPosts']
+      const currentCategory = getPosts.filter((recipe) => {
+        return recipe.category === this.$route.params.id
+      })
       return currentCategory
     },
     categoryName() {
-      const filterCategory = this.$store.state.categoryStore.categories.filter(
-        (category) => {
-          return category.id === this.pageId
-        }
-      )
+      const getCategories = this.$store.getters['categoryStore/getCategories']
+      const filterCategory = getCategories.filter((category) => {
+        return category.id === this.$route.params.id
+      })
       return filterCategory[0].name
     },
   },

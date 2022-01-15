@@ -35,10 +35,16 @@
           v-on:click="$emit('toggle', 3)"
           class="block mb-2 text-center hover:text-gray-900 transition ease-in duration-150"
         >
-          Update profile
+          My Comments
         </button>
         <button
           v-on:click="$emit('toggle', 4)"
+          class="block mb-2 text-center hover:text-gray-900 transition ease-in duration-150"
+        >
+          Update profile
+        </button>
+        <button
+          v-on:click="$emit('toggle', 5)"
           class="block mb-2 text-center hover:text-gray-900 transition ease-in duration-150"
         >
           Change Password

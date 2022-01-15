@@ -70,12 +70,7 @@ export const actions = {
   async loadComments(context) {
     try {
       await onSnapshot(colQuery, (snap) => {
-        // let comments = []
         const comments = snap.docs.map((doc) => {
-          //   comments.push({
-          //     ...doc.data(),
-          //     id: doc.id,
-          //   })
           return { ...doc.data(), id: doc.id }
         })
         context.commit('setComments', comments)

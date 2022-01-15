@@ -80,7 +80,11 @@
 </template>
 
 <script>
-export default {}
+export default {
+  head() {
+    return {
+      title: "About - Bobby's Cookbook",
+    }
+  },
+}
 </script>
-
-<style></style>

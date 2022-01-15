@@ -1667,6 +1667,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(204 8 11 / var(--tw-text-opacity));
 }
 
+.hover\:text-pink-500:hover {
+  --tw-text-opacity: 1;
+  color: rgb(236 72 153 / var(--tw-text-opacity));
+}
+
+.hover\:text-\[\#d45464\]:hover {
+  --tw-text-opacity: 1;
+  color: rgb(212 84 100 / var(--tw-text-opacity));
+}
+
 .hover\:underline:hover {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
@@ -2034,6 +2044,10 @@ Ensure the default browser behavior of the `hidden` attribute.
     width: 40%;
   }
 
+  .xl\:w-\[80\%\] {
+    width: 80%;
+  }
+
   .xl\:pb-32 {
     padding-bottom: 8rem;
   }
@@ -2050,5 +2064,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 
   .\32xl\:w-\[30\%\] {
     width: 30%;
+  }
+
+  .\32xl\:w-\[660\%\] {
+    width: 660%;
   }
 }

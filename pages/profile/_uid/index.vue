@@ -11,9 +11,9 @@
       <div class="relative inline-block mx-auto self-center text-center">
         <img
           :src="
-            this.$store.state.authStore.isAuthenticated &&
-            this.$store.state.authStore.user.photoURL
-              ? this.$store.state.authStore.user.photoURL
+            this.$store.getters['authStore/getAuthentication'] &&
+            this.$store.getters['authStore/getUser'].photoURL
+              ? this.$store.getters['authStore/getUser'].photoURL
               : this.defaultProfile
           "
           alt="profile"
@@ -23,8 +23,8 @@
           class="self-center text-white font-semibold text-xl capitalize text-shadow-lg"
         >
           {{
-            this.$store.state.authStore.user &&
-            this.$store.state.authStore.user.displayName
+            this.$store.getters['authStore/getUser'] &&
+            this.$store.getters['authStore/getUser'].displayName
           }}
         </h1>
       </div>
@@ -56,10 +56,22 @@
             />
           </div>
         </div>
-        <div v-if="toggleMenu === 3" class="lg:col-span-3">
+        <div v-if="toggleMenu === 3" class="lg:col-span-3 gap-4">
+          <!-- My Comments -->
+          <h1 class="text-4xl font-bold mb-8 ml-3">My Comments</h1>
+          <div v-if="checkAuth">
+            <ProfileComments
+              v-for="comment in loadMyComments"
+              :key="comment.id"
+              :comment="comment"
+            />
+          </div>
+        </div>
+
+        <div v-if="toggleMenu === 4" class="lg:col-span-3">
           <UpdateProfile v-if="checkAuth" />
         </div>
-        <div v-if="toggleMenu === 4" class="lg:col-span-3">
+        <div v-if="toggleMenu === 5" class="lg:col-span-3">
           <UpdatePassword v-if="checkAuth" />
         </div>
       </div>
@@ -72,11 +84,13 @@ import ProfileNav from '@/components/profile-parts/ProfileNav.vue'
 import Card from '@/components/recipe-parts/Card.vue'
 import UpdateProfile from '@/components/profile-parts/UpdateProfile.vue'
 import UpdatePassword from '@/components/profile-parts/UpdatePassword.vue'
+import ProfileComments from '@/components/profile-parts/ProfileComments.vue'
 
 export default {
   components: {
     ProfileNav,
     Card,
+    ProfileComments,
     UpdateProfile,
     UpdatePassword,
   },
@@ -88,6 +102,15 @@ export default {
       toggleMenu: 1,
     }
   },
+  head() {
+    return {
+      title: `${
+        this.$store.getters['authStore/getAuthentication']
+          ? this.$store.getters['authStore/getUser'].displayName + "'s Profile"
+          : "Profile Page - Bobby's Cooking"
+      }`,
+    }
+  },
   middleware: 'auth',
   methods: {
     menuToggler(e) {
@@ -96,24 +119,42 @@ export default {
   },
   computed: {
     checkAuth() {
-      return this.$store.state.authStore.isAuthenticated
+      return this.$store.getters['authStore/getAuthentication']
     },
     loadMyPosts() {
-      const checkAuth = this.$store.state.authStore.isAuthenticated
-      const myPosts = this.$store.state.postsStore.recipes.filter((post) => {
-        return post.author.userId === this.$store.state.authStore.user.uid
-      })
+      const checkAuth = this.$store.getters['authStore/getAuthentication']
+      const myPosts = this.$store.getters['postsStore/getPosts'].filter(
+        (post) => {
+          return (
+            post.author.userId === this.$store.getters['authStore/getUser'].uid
+          )
+        }
+      )
       return checkAuth && myPosts
     },
     loadLikedPosts() {
-      const checkAuth = this.$store.state.authStore.isAuthenticated
-      const likedPosts = this.$store.state.postsStore.recipes.filter((post) => {
-        return (
-          post.liked &&
-          post.liked.includes(this.$store.state.authStore.user.uid)
-        )
-      })
+      const checkAuth = this.$store.getters['authStore/getAuthentication']
+      const likedPosts = this.$store.getters['postsStore/getPosts'].filter(
+        (post) => {
+          return (
+            post.liked &&
+            post.liked.includes(this.$store.getters['authStore/getUser'].uid)
+          )
+        }
+      )
       return checkAuth && likedPosts
+    },
+    loadMyComments() {
+      const checkAuth = this.$store.getters['authStore/getAuthentication']
+      const myComments = this.$store.getters['commentStore/getComments'].filter(
+        (comment) => {
+          return (
+            comment.author.userId ===
+            this.$store.getters['authStore/getUser'].uid
+          )
+        }
+      )
+      return checkAuth && myComments
     },
   },
 }

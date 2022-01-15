@@ -28,7 +28,10 @@ autoprefixer\
 moment\
 postcss-cli\
 tailwindcss\
-Firebase
+Firebase\
+js-cookie\
+jwt-decoder\
+cookieparser
 
 ## Changes
 

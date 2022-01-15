@@ -30,12 +30,12 @@
           <div
             class="w-[95%] lg:w-full max-w-md p-2 mx-auto bg-white border border-gray-200 rounded-2xl shadow-lg mb-4"
           >
-            <nuxt-link
-              to="/recipes/new"
+            <a
+              href="/recipes/new"
               class="text-center text-2xl font-semibold block py-2 rounded-lg bg-[#d45464] text-white hover:bg-[#cc080b] transition ease-in duration-150 w-full px-4 font-semibold items-center"
             >
               Add New Recipe
-            </nuxt-link>
+            </a>
           </div>
 
           <CategoryBox @toggle="toggleModal" />
@@ -64,6 +64,11 @@ export default {
       searchInput: '',
     }
   },
+  head() {
+    return {
+      title: "Recipes - Bobby's Cookbook",
+    }
+  },
   methods: {
     toggleModal() {
       this.showModal = !this.showModal
@@ -71,7 +76,6 @@ export default {
   },
   computed: {
     loadedPosts() {
-      // const dataList = this.$store.state.postsStore.recipes
       const dataList = this.$store.getters['postsStore/getPosts']
       if (this.searchInput === '') {
         return dataList
@@ -90,5 +94,3 @@ export default {
   },
 }
 </script>
-
-<style></style>

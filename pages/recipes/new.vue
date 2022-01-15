@@ -120,12 +120,17 @@ export default {
       },
     }
   },
+  head() {
+    return {
+      title: "Add New Recipe - Bobby's Cookbook",
+    }
+  },
   middleware: 'auth',
   methods: {
     handleSubmit() {
       const { title, category, ingredients, direction, cover } = this.inputData
-      const user = this.$store.state.authStore.user
-      if (!this.$store.state.authStore.isAuthenticated) {
+      const user = this.$store.getters['authStore/getUser']
+      if (!this.$store.getters['authStore/getAuthentication']) {
         console.log('Please Login to create new post!')
         this.$router.push('/login')
       } else {
@@ -157,7 +162,7 @@ export default {
   },
   computed: {
     getCategoryList() {
-      return this.$store.state.categoryStore.categories
+      return this.$store.getters['categoryStore/getCategories']
     },
   },
 }

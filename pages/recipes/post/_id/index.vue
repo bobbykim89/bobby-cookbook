@@ -27,12 +27,12 @@
             v-if="this.$store.state.authStore.isAuthenticated"
             class="inline-block"
           >
-            <nuxt-link :to="`/recipes/post/${postId}/edit`"
+            <a :href="`/recipes/post/${postId}/edit`"
               ><i
                 class="material-icons text-4xl text-[#d45464] hover:text-[#cc080b] transition ease-in duration-150 align-middle"
                 >edit</i
               >
-            </nuxt-link>
+            </a>
             <i
               @click="handleDelete"
               class="material-icons text-4xl text-[#f1ac18] hover:text-[#f25b0a] transition ease-in duration-150 align-middle cursor-pointer"
@@ -121,6 +121,14 @@ export default {
       postId: this.$route.params.id,
     }
   },
+  head() {
+    return {
+      title: `${
+        this.postData.title.charAt(0).toUpperCase() +
+        this.postData.title.slice(1)
+      }`,
+    }
+  },
   async asyncData(context) {
     const docRef = doc(db, 'recipes', context.params.id)
     const docSnap = await getDoc(docRef)
@@ -132,24 +140,24 @@ export default {
   },
   computed: {
     loadComments() {
-      const currentComments = this.$store.state.commentStore.comments.filter(
-        (comment) => {
-          return comment.postId === this.postId
-        }
-      )
+      const getComments = this.$store.getters['commentStore/getComments']
+      const currentComments = getComments.filter((comment) => {
+        return comment.postId === this.postId
+      })
       return currentComments
     },
     checkLike() {
       if (
         !this.postData.liked ||
-        !this.$store.state.authStore.isAuthenticated
+        !this.$store.getters['authStore/getAuthentication']
       ) {
-        console.log(false)
         return false
       } else {
         const checker =
           this.postData.liked &&
-          this.postData.liked.includes(this.$store.state.authStore.user.uid)
+          this.postData.liked.includes(
+            this.$store.getters['authStore/getUser'].uid
+          )
         return checker
       }
     },

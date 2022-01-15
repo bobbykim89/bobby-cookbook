@@ -109,6 +109,11 @@ export default {
       password2: '',
     }
   },
+  head() {
+    return {
+      title: "SignUp - Bobby's Cookbook",
+    }
+  },
   middleware: 'guestOnly',
   methods: {
     onSubmit() {

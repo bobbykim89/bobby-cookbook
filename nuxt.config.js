@@ -13,6 +13,7 @@ export default {
         name: 'description',
         content: 'Simple recipes for those who loves to cook :D',
       },
+      { hid: 'keywords', name: 'keywords', content: 'cooking, recipes' },
       { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [

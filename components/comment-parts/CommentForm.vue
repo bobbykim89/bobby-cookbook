@@ -35,24 +35,20 @@ export default {
   },
   methods: {
     handleSubmit() {
-      const user = this.$store.state.authStore.user
-      if (!this.$store.state.authStore.isAuthenticated) {
+      const user = this.$store.getters['authStore/getUser']
+      if (!this.$store.getters['authStore/getAuthentication']) {
         console.log('Please Login to create new post!')
         this.$router.push('/login')
       } else {
-        this.$store
-          .dispatch('commentStore/addComment', {
-            message: this.message,
-            author: {
-              username: user.displayName,
-              userId: user.uid,
-              avatar: user.photoURL,
-            },
-            postId: this.postId,
-          })
-          .then(() => {
-            this.$router.go()
-          })
+        this.$store.dispatch('commentStore/addComment', {
+          message: this.message,
+          author: {
+            username: user.displayName,
+            userId: user.uid,
+            avatar: user.photoURL,
+          },
+          postId: this.postId,
+        })
       }
     },
   },

@@ -79,6 +79,11 @@ export default {
       password: '',
     }
   },
+  head() {
+    return {
+      title: "Login - Bobby's Cookbook",
+    }
+  },
   middleware: 'guestOnly',
   methods: {
     onSubmit() {

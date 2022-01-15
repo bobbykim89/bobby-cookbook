@@ -73,7 +73,7 @@
           </div>
           <div
             class="block w-full text-center px-4 py-2 bg-[#f1ac18] hover:bg-[#f25b0a] text-lg text-white font-semibold tracking-wider shadow-md transition ease-in duration-150 cursor-pointer"
-            @click="$router.push('/recipes')"
+            @click="$router.push(`/recipes/post/${postId}`)"
           >
             Cancel
           </div>
@@ -91,21 +91,22 @@ export default {
   data() {
     return {
       postId: this.$route.params.id,
-      inputData: {
-        title: '',
-        category: '',
-        ingredients: '',
-        direction: '',
-      },
     }
   },
   middleware: 'auth',
+  head() {
+    return {
+      title: `${
+        this.postData.title.charAt(0).toUpperCase() +
+        this.postData.title.slice(1)
+      }`,
+    }
+  },
   async asyncData(context) {
     const docRef = doc(db, 'recipes', context.params.id)
     const docSnap = await getDoc(docRef)
 
     const result = await docSnap.data()
-    // const getCategory = await getDoc(doc(db, 'categories', result.category))
 
     return {
       postData: { ...result },
@@ -114,10 +115,12 @@ export default {
   methods: {
     handleSubmit() {
       const { title, category, ingredients, direction, author } = this.postData
-      if (!this.$store.state.authStore.isAuthenticated) {
+      if (!this.$store.getters['authStore/getAuthentication']) {
         console.log('Please Login to create new category!')
         this.$router.push('/login')
-      } else if (this.$store.state.authStore.user.uid !== author.userId) {
+      } else if (
+        this.$store.getters['authStore/getUser'].uid !== author.userId
+      ) {
         console.log('You are not authorized to do so.')
       } else {
         this.$store
@@ -136,7 +139,7 @@ export default {
   },
   computed: {
     getCategoryList() {
-      return this.$store.state.categoryStore.categories
+      return this.$store.getters['categoryStore/getCategories']
     },
   },
 }

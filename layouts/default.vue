@@ -8,6 +8,7 @@
     <div class="relative min-h-[85vh]">
       <Nuxt />
     </div>
+    <ScrollTop />
     <Footer />
   </div>
 </template>
@@ -15,10 +16,12 @@
 <script>
 import Navbar from '@/components/layout-parts/Navbar.vue'
 import Footer from '@/components/layout-parts/Footer.vue'
+import ScrollTop from '@/components/layout-parts/ScrollTop.vue'
 export default {
   components: {
     Navbar,
     Footer,
+    ScrollTop,
   },
   // middleware: ['loadData', 'loadUserInfo'],
   mounted() {

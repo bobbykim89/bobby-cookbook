@@ -58,7 +58,7 @@
           v-for="menu in navigation"
           :key="menu.name"
           :to="menu.to"
-          class="inline-block text-black align-middle text-lg hover:text-[#f1ac18] hover:text-shadow-md mr-4"
+          class="inline-block text-black align-middle text-lg hover:text-[#f25b0a] hover:text-shadow-md mr-4"
           >{{ menu.name }}</nuxt-link
         >
       </div>
