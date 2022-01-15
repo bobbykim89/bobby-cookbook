@@ -35,16 +35,11 @@ cookieparser
 
 ## Changes
 
-1. Initialize the project using Nuxt.js for frontend and Firebase on the backend.
-2. Headless UI doesn't support Nuxt running on Vue 2, so I need to work the UI manually.
-3. Authentication and some of functionalities of regarding posts are added. Some elements are now being dynamically displayed.
-4. Added CRUD functionality for Recipes, and CRD for Comments. also Recipes can be sorted by categories.
-5. Added User profile page that filters the posts that has been created by user, liked by user, and profile update which you can change profile picture and username.
-6. Fixed bugs found while processing actions in Vuex store. now it is fixed and I will see if I can find more in the future.
+1. Ready for initial deployment!
 
 ## Known Issues
 
-N/A
+1. Considering about adding pagination and alert popup in the future.
 
 ## Update Log
 
