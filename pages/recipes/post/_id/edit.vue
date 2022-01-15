@@ -99,6 +99,7 @@ export default {
       },
     }
   },
+  middleware: 'auth',
   async asyncData(context) {
     const docRef = doc(db, 'recipes', context.params.id)
     const docSnap = await getDoc(docRef)

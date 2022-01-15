@@ -37,7 +37,7 @@
         <div v-if="toggleMenu === 1" class="lg:col-span-3 grid gap-4">
           <!-- My posts -->
           <h1 class="text-4xl font-bold mb-8 ml-3">My Recipes</h1>
-          <div class="grid lg:grid-cols-3 gap-4">
+          <div v-if="checkAuth" class="grid lg:grid-cols-3 gap-4">
             <Card
               v-for="recipe in loadMyPosts"
               :key="recipe.id"
@@ -48,7 +48,7 @@
         <div v-if="toggleMenu === 2" class="lg:col-span-3 gap-4">
           <!-- Liked posts -->
           <h1 class="text-4xl font-bold mb-8 ml-3">Liked Recipes</h1>
-          <div class="grid lg:grid-cols-3 gap-4">
+          <div v-if="checkAuth" class="grid lg:grid-cols-3 gap-4">
             <Card
               v-for="recipe in loadLikedPosts"
               :key="recipe.id"
@@ -57,10 +57,10 @@
           </div>
         </div>
         <div v-if="toggleMenu === 3" class="lg:col-span-3">
-          <UpdateProfile />
+          <UpdateProfile v-if="checkAuth" />
         </div>
         <div v-if="toggleMenu === 4" class="lg:col-span-3">
-          <UpdatePassword />
+          <UpdatePassword v-if="checkAuth" />
         </div>
       </div>
     </div>
@@ -86,29 +86,34 @@ export default {
         'https://images.unsplash.com/photo-1542223189-67a03fa0f0bd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1997&q=80',
       defaultProfile: '/images/defaultProfile.jpg',
       toggleMenu: 1,
-      currentUser: {},
     }
   },
+  middleware: 'auth',
   methods: {
     menuToggler(e) {
       this.toggleMenu = e
     },
   },
   computed: {
+    checkAuth() {
+      return this.$store.state.authStore.isAuthenticated
+    },
     loadMyPosts() {
+      const checkAuth = this.$store.state.authStore.isAuthenticated
       const myPosts = this.$store.state.postsStore.recipes.filter((post) => {
         return post.author.userId === this.$store.state.authStore.user.uid
       })
-      return myPosts
+      return checkAuth && myPosts
     },
     loadLikedPosts() {
+      const checkAuth = this.$store.state.authStore.isAuthenticated
       const likedPosts = this.$store.state.postsStore.recipes.filter((post) => {
         return (
           post.liked &&
           post.liked.includes(this.$store.state.authStore.user.uid)
         )
       })
-      return likedPosts
+      return checkAuth && likedPosts
     },
   },
 }

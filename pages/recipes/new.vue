@@ -120,6 +120,7 @@ export default {
       },
     }
   },
+  middleware: 'auth',
   methods: {
     handleSubmit() {
       const { title, category, ingredients, direction, cover } = this.inputData

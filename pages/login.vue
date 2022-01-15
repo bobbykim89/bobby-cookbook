@@ -79,6 +79,7 @@ export default {
       password: '',
     }
   },
+  middleware: 'guestOnly',
   methods: {
     onSubmit() {
       if (this.email === '' || this.password === '') {

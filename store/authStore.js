@@ -12,6 +12,8 @@ import {
 
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
+import Cookies from 'js-cookie'
+
 export const state = () => ({
   user: null,
   isAuthenticated: false,
@@ -35,10 +37,12 @@ export const actions = {
   async signUp(context, { email, password, username }) {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password)
-      if (!res) {
-        throw new Error('Could not complete the signup')
-      }
+
       await updateProfile(res.user, { displayName: username })
+
+      // set token in Cookie
+      const token = await auth.currentUser.getIdToken(true)
+      Cookies.set('access_token', token)
       await context.commit('setUser', res.user)
     } catch (err) {
       console.log(err.message)
@@ -48,6 +52,10 @@ export const actions = {
   async login(context, { email, password }) {
     try {
       const res = await signInWithEmailAndPassword(auth, email, password)
+
+      // set token in Cookie
+      const token = await auth.currentUser.getIdToken(true)
+      Cookies.set('access_token', token)
       context.commit('setUser', res.user)
     } catch (err) {
       console.log(err.message)
@@ -57,6 +65,8 @@ export const actions = {
   },
   async logout(context) {
     await signOut(auth)
+    // Remove access token on logout
+    Cookies.remove('access_token')
     context.commit('setUser', null)
   },
   async loadUser(context) {

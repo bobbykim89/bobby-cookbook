@@ -49,7 +49,7 @@ export const actions = {
 
       // Add post id to corresponding category
       await updateDoc(doc(db, 'recipes', postId), {
-        recipes: arrayUnion(res.id),
+        comments: arrayUnion(res.id),
       })
     } catch (err) {
       console.log(err.message)
@@ -59,7 +59,7 @@ export const actions = {
   async deleteComment(context, { id, postId }) {
     try {
       await updateDoc(doc(db, 'recipes', postId), {
-        recipes: arrayRemove(id),
+        comments: arrayRemove(id),
       })
       await deleteDoc(doc(db, 'comments', id))
     } catch (err) {

@@ -109,6 +109,7 @@ export default {
       password2: '',
     }
   },
+  middleware: 'guestOnly',
   methods: {
     onSubmit() {
       if (this.username === '' || this.email === '' || this.password === '') {
