@@ -1,4 +1,4 @@
-# Bobby's Cook Book - Nuxt Ver. v0.1.0 (In Progress)
+# Bobby's Cook Book - Nuxt Ver. v0.1.1
 
 Small cookbook webpage using Nuxt.js, Vuex, Firebase and Tailwind CSS.
 
@@ -40,6 +40,8 @@ cookieparser
 ## Known Issues
 
 1. Considering about adding pagination and alert popup in the future.
+2. Found an issue about page breaking once page refreshes in categories page, need to work on fixing this issue.
+3. Fix issue of token expiring before end of login session.
 
 ## Update Log
 
